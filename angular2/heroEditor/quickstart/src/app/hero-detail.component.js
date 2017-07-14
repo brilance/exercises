@@ -31,6 +31,11 @@ var HeroDetailComponent = (function () {
         this.location.back();
     };
     ;
+    HeroDetailComponent.prototype.save = function () {
+        var _this = this;
+        this.heroService.update(this.hero)
+            .then(function () { return _this.goBack(); });
+    };
     return HeroDetailComponent;
 }());
 __decorate([
