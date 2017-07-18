@@ -29,11 +29,11 @@
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
-      app: {
+      'src/app': {
         defaultExtension: 'js',
         meta: {
           './*.js': {
-            loader: 'systemjs-angular-loader.js'
+            loader: 'src/systemjs-angular-loader.js'
           }
         }
       },

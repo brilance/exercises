@@ -67,7 +67,6 @@ export class AppComponent{
 		});
 	}
 
-	//NOTE: what is this for?
 	setEditState(todo:Todo, state:boolean){
 		if (state){
 			todo.isEditMode = state;
