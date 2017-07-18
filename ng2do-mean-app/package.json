@@ -1,0 +1,11 @@
+{
+  "name": "ng2do-mean-app",
+  "version": "0.1.0",
+  "description": "tutorial MEAN app (to-do list)",
+  "main": "server.js",
+  "scripts": {
+    "test": "none"
+  },
+  "author": "Bri Lance",
+  "license": "ISC"
+}
