@@ -1,0 +1,27 @@
+<div>
+	<h1>MEAN Todo App</h1>
+	<div>
+		<div>
+			<input class="form-control input-lg" placeholder="Add a Todo" autofocus #todotext (keyup)="addTodo($event, todotext)">
+		</div>
+	</div>
+	<div>
+		<div [hidden]="todos.length > 0">
+			<h3>No Todos yet!</h3>
+		</div>
+		<div *ngFor="let todo of todos" [class.strike]="todo.isCompleted">
+			<div>
+				<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo)">
+			</div>
+			<div>
+				<span [class.hidden]="todo.isEditMode">{{todo.text}}</span>
+				<input [class.hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoText($event, todo);">
+				<input [class.hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+			</div>
+			<div>
+				<input type="button" [class.disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+				<input type="button" value="Delete" (click)="deleteTodo(todo)">
+			</div>
+		</div>
+	</div>
+</div>

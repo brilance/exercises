@@ -2,8 +2,28 @@
 <html>
 <head>
 	<title>To-Do App with MEAN Stack</title>
+	<base href="/">
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Polyfill(s) for older browsers -->
+    <script src="components/node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="components/node_modules/zone.js/dist/zone.js"></script>
+    <script src="components/node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="components/systemjs.config.js"></script>
+    <script>
+      System.import('main.js').catch(function(err){ console.error(err); });
+    </script>
 </head>
 <body>
 	<h1>To-Do App with MEAN Stack</h1>
+	<div class="container">
+        <todo-app>
+            <h2 class="text-center">Loading A M.E.A.N. Todo App...</h2>
+        </todo-app>
+    </div>
 </body>
 </html>
