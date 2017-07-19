@@ -61,7 +61,6 @@ var AppComponent = (function () {
             }
         });
     };
-    //NOTE: what is this for?
     AppComponent.prototype.setEditState = function (todo, state) {
         if (state) {
             todo.isEditMode = state;
@@ -75,7 +74,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'todo-app',
-        templateUrl: './todo-app.component.html'
+        templateUrl: './todo-app.component.html',
+        styleUrls: ['./todo-app.component.css']
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);

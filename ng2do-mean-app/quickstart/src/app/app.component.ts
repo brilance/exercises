@@ -4,7 +4,8 @@ import {Todo} from './todo';
 
 @Component({
   selector: 'todo-app',
-  templateUrl: './todo-app.component.html'
+  templateUrl: './todo-app.component.html',
+  styleUrls:['./todo-app.component.css']
 })
 
 export class AppComponent{
@@ -12,7 +13,6 @@ export class AppComponent{
 
 	constructor(){
 		this.todos = [];
-
 		TodoFactory.getAll().then( (data:Array<Todo>) => {this.todos = data;});
 	}
 
@@ -38,7 +38,6 @@ export class AppComponent{
 				text: todo.text,
 				isCompleted : todo.isCompleted
 			};
-
 			TodoFactory.update(_todo).then((data:any) => {this.setEditState(todo, false);});
 		}
 	}

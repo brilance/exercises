@@ -62,7 +62,7 @@ router.put('/todo/:id', function(req, res, next){
 		updObj.text = todo.text;
 	}
 
-	if (!updObj.text || !updObj.isCompleted+''){
+	if (!updObj.text){
 		res.status(400);
 		res.json({
 			"error":"Invalid Data"
