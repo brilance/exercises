@@ -5,7 +5,7 @@ const db = mongojs('mongodb://localhost:27017/ng2todoapp', ['todos']);
 
 //GET all todos
 router.get('/todos', function(req, res, next){
-	db.todos.find(function(err, todos){
+	db.todos.find().sort({isCompleted:1}, function(err, todos){
 		if (err){
 			res.send(err);
 		}

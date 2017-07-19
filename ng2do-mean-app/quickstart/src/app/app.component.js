@@ -13,44 +13,72 @@ var todos_factory_1 = require("./todos-factory");
 var AppComponent = (function () {
     function AppComponent() {
         var _this = this;
-        this.todos = [];
-        todos_factory_1.TodoFactory.getAll().then(function (data) { _this.todos = data; });
+        this.doneTodos = [];
+        this.undoneTodos = [];
+        todos_factory_1.TodoFactory.getAll().then(function (data) {
+            _this.doneTodos = data.filter(function (item) { return item.isCompleted; });
+            _this.undoneTodos = data.filter(function (item) { return !item.isCompleted; });
+        });
     }
-    AppComponent.prototype.addTodo = function ($event, todoText) {
-        var _this = this;
+    AppComponent.prototype.addTodoKey = function ($event, todoText) {
         if ($event.which === 13) {
-            var _todo = {
-                text: todoText.value,
-                isCompleted: false
-            };
-            todos_factory_1.TodoFactory.save(_todo).then(function (data) {
-                _this.todos.push(data);
-                todoText.value = '';
-            });
+            this.addTodo(todoText);
         }
     };
-    AppComponent.prototype.updateTodoText = function ($event, todo) {
+    AppComponent.prototype.addTodoBtn = function (todoText) {
+        this.addTodo(todoText);
+    };
+    AppComponent.prototype.addTodo = function (todoText) {
         var _this = this;
+        var _todo = {
+            text: todoText.value,
+            isCompleted: false
+        };
+        todos_factory_1.TodoFactory.save(_todo).then(function (data) {
+            _this.undoneTodos.push(data);
+            todoText.value = '';
+        });
+    };
+    AppComponent.prototype.updateTodoTextKey = function ($event, edittext, todo) {
         if ($event.which === 13) {
-            todo.text = $event.target.value;
-            var _todo = {
-                _id: todo._id,
-                text: todo.text,
-                isCompleted: todo.isCompleted
-            };
-            todos_factory_1.TodoFactory.update(_todo).then(function (data) { _this.setEditState(todo, false); });
+            this.updateTodoText(edittext, todo);
         }
     };
-    AppComponent.prototype.updateStatus = function (todo) {
+    AppComponent.prototype.updateTodoTextBtn = function (edittext, todo) {
+        this.updateTodoText(edittext, todo);
+    };
+    AppComponent.prototype.updateTodoText = function (edittext, todo) {
+        var _this = this;
+        todo.text = edittext.value;
+        var _todo = {
+            _id: todo._id,
+            text: todo.text,
+            isCompleted: todo.isCompleted
+        };
+        todos_factory_1.TodoFactory.update(_todo).then(function (data) { _this.setEditState(todo, false); });
+    };
+    AppComponent.prototype.updateStatus = function (todo, item) {
         var _todo = {
             _id: todo._id,
             text: todo.text,
             isCompleted: !todo.isCompleted
         };
-        todos_factory_1.TodoFactory.update(_todo).then(function (data) { todo.isCompleted = !todo.isCompleted; });
+        if (!todo.isCompleted) {
+            document.querySelector("#doneItems").appendChild(item);
+            this.doneTodos.push(todo);
+            this.undoneTodos.splice(this.undoneTodos.findIndex(function (item) { return item._id == todo._id; }), 1);
+        }
+        else {
+            document.querySelector("#todoItems").appendChild(item);
+            this.undoneTodos.push(todo);
+            this.doneTodos.splice(this.doneTodos.findIndex(function (item) { return item._id == todo._id; }), 1);
+        }
+        todos_factory_1.TodoFactory.update(_todo).then(function (data) {
+            todo.isCompleted = !todo.isCompleted;
+        });
     };
     AppComponent.prototype.deleteTodo = function (todo) {
-        var todos = this.todos;
+        var todos = this.undoneTodos.concat(this.doneTodos);
         todos_factory_1.TodoFactory.delete(todo._id).then(function (data) {
             if (data.n == 1) {
                 for (var i = 0; i < todos.length; i++) {

@@ -2,20 +2,39 @@
 	<h1>MEAN Todo App</h1>
 	<div>
 		<div>
-			<input class="form-control input-lg" placeholder="Add a Todo" autofocus #todotext (keyup)="addTodo($event, todotext)">
+			<input class="form-control input-lg" placeholder="Add a Todo" autofocus #todotext (keyup)="addTodoKey($event, todotext)">
+			<input type="button" value="Add" (click)="addTodoBtn(todotext)">
 		</div>
 	</div>
-	<div>
-		<div [hidden]="todos.length > 0">
-			<h3>No Todos yet!</h3>
-		</div>
-		<div *ngFor="let todo of todos" class="container">
+	<div [hidden]="undoneTodos.length > 0 || doneTodos.length > 0">
+		<h3>No Todos yet!</h3>
+	</div>
+	<div id="todoItems">
+		<div *ngFor="let todo of undoneTodos" class="container" #item>
 			<div class="col1">
-				<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo)">
+				<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
 			</div>
 			<div class="col2">
 				<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
-				<input [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoText($event, todo);">
+				<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+				<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+				<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+			</div>
+			<div class="col3">
+				<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+				<input type="button" value="Delete" (click)="deleteTodo(todo)">
+			</div>
+		</div>
+	</div>
+	<div id="doneItems">
+		<div *ngFor="let todo of doneTodos" class="container" #item>
+			<div class="col1">
+				<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+			</div>
+			<div class="col2">
+				<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+				<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+				<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
 				<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
 			</div>
 			<div class="col3">
