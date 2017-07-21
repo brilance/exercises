@@ -22,3 +22,11 @@
 .today .day, .today .date{
 	background-color:#7cbc8f;
 }
+
+@media (max-width:480px){
+	#outerContainer{
+		display:flex;
+		flex-flow:column nowrap;
+		width:100%;
+	}
+}

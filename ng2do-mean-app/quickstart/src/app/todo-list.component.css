@@ -4,19 +4,25 @@
 
 .container{
 	display:flex;
-	flex-flow:row nowrap;
+	flex-flow:row wrap;
 	margin:10px 0px;
-	max-width:500px;
+	max-width:150px;
 	padding:10px;
+	justify-content:space-between;
+}
+
+@media (max-width:480px){
+	.container{
+		max-width:480px;
+	}
 }
 
 .col1{
-	flex-grow:1;
+	flex-grow:2;
 }
 
 .col2{
-	flex-grow:3;
-	width:150px;
+	flex-grow:2;
 }
 
 .col3{

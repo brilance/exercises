@@ -2,7 +2,7 @@
 	<h1>MEAN Todo App</h1>
 	<div>
 		<div>
-			<input class="form-control input-lg" placeholder="Add a Todo" autofocus #todotext (keyup)="addTodoKey($event, todotext, dpInput)">
+			<input class="form-control" placeholder="Add a Todo" autofocus #todotext (keyup)="addTodoKey($event, todotext, dpInput)">
 			<md-input-container>
 				<input #dpInput mdInput [mdDatepicker]="picker" placeholder="Choose a date">
 				<button mdSuffix [mdDatepickerToggle]="picker"></button>
