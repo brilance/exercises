@@ -1,31 +1,35 @@
-import {$http} from './xhr-factory';
 import {Todo} from './todo';
+import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core'
 
-export const TodoFactory = {
+@Injectable()
+export class TodoFactory{
 
-	getAll: function(){
-		return $http.get('/api/v1/todos');
-	},
+	constructor(private http: HttpClient) {}
 
-	getAllForDate: function(dateStr:string){
+	getAll(){
+		return this.http.get('/api/v1/todos');
+	}
+
+	getAllForDate(dateStr:string){
 		//dateStr format: m-d-yyyy
-		return $http.get('/api/v1/todos?date='+dateStr);
-	},
+		return this.http.get('/api/v1/todos?date='+dateStr);
+	}
 
-	get: function(id:string){
-		return $http.get('/api/v1/todo/'+id);
-	},
+	get(id:string){
+		return this.http.get('/api/v1/todo/'+id);
+	}
 
-	save: function(todo:Todo){
-		return $http.post('/api/v1/todo', todo);
-	},
+	save(todo:Todo){
+		return this.http.post('/api/v1/todo', todo);
+	}
 
-	update: function(todo:Todo){
-		return $http.put('/api/v1/todo/'+todo._id, todo);
-	},
+	update(todo:Todo){
+		return this.http.put('/api/v1/todo/'+todo._id, todo);
+	}
 
-	delete: function(id:string){
-		return $http.delete('/api/v1/todo/'+id);
+	delete(id:string){
+		return this.http.delete('/api/v1/todo/'+id);
 	}
 	
 };

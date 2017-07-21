@@ -10,16 +10,11 @@ import {DateInfo} from './date-info';
 })
 
 export class AppComponent{
-	//doneTodos:Array<Todo>;
-	//undoneTodos:Array<Todo>;
-
 	todayDate:string;
 	dateInfo:Array<DateInfo>;
 	monthLookup:Array<string> = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-	
-	constructor(){
-		//this.doneTodos = [];
-		//this.undoneTodos = [];
+
+	constructor(private todoFactory:TodoFactory){
 		this.dateInfo = [];
 		this.getTodayItems();
 	}
@@ -96,7 +91,7 @@ export class AppComponent{
 	fetchTodos(){
 		for (let di of this.dateInfo){
 			let dateString = di.linkText;
-			TodoFactory.getAllForDate(dateString).then( (data:Array<Todo>) => {
+			this.todoFactory.getAllForDate(dateString).subscribe( (data:Array<Todo>) => {
 				di.doneItems = data.filter(item => item.isCompleted);
 				di.undoneItems = data.filter(item => !item.isCompleted);
 			});
@@ -128,7 +123,7 @@ export class AppComponent{
 			const dateObj = new Date(year, month-1, day);
 			_todo.date = month+"-"+day+"-"+year;
 
-			TodoFactory.save(_todo).then( (data:Todo) => {
+			this.todoFactory.save(_todo).subscribe( (data:Todo) => {
 				this.dateInfo[dateObj.getDay()].undoneItems.push(data);
 				todoText.value = '';
 			});
@@ -153,7 +148,7 @@ export class AppComponent{
 			date: todo.date,
 			isCompleted : todo.isCompleted
 		};
-		TodoFactory.update(_todo).then((data:any) => {this.setEditState(todo, false);});
+		this.todoFactory.update(_todo).subscribe((data:any) => {this.setEditState(todo, false);});
 	}
 
 	updateStatus(todo:Todo, item:any){
@@ -179,7 +174,7 @@ export class AppComponent{
 			this.dateInfo[day].doneItems.splice(this.dateInfo[day].doneItems.findIndex((item:Todo) => item._id == todo._id), 1);
 		}
 
-		TodoFactory.update(_todo).then( (data:any) => {
+		this.todoFactory.update(_todo).subscribe( (data:any) => {
 			todo.isCompleted = !todo.isCompleted;
 		});
 	}
@@ -189,7 +184,7 @@ export class AppComponent{
 		const dateObj = new Date(parseInt(year,10),parseInt(month,10)-1,parseInt(date,10));
 		const day = dateObj.getDay();
 
-		TodoFactory.delete(todo._id).then((data:any)=>{
+		this.todoFactory.delete(todo._id).subscribe((data:any)=>{
 			if (data.n == 1){
 				for (let i = 0; i < this.dateInfo[day].undoneItems.length; i++){
 					if (this.dateInfo[day].undoneItems[i]._id == todo._id){

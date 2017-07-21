@@ -13,10 +13,9 @@ var core_1 = require("@angular/core");
 var todos_factory_1 = require("./todos-factory");
 var date_info_1 = require("./date-info");
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(todoFactory) {
+        this.todoFactory = todoFactory;
         this.monthLookup = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        //this.doneTodos = [];
-        //this.undoneTodos = [];
         this.dateInfo = [];
         this.getTodayItems();
     }
@@ -87,11 +86,12 @@ var AppComponent = (function () {
     AppComponent.prototype.fetchTodos = function () {
         var _loop_1 = function (di) {
             var dateString = di.linkText;
-            todos_factory_1.TodoFactory.getAllForDate(dateString).then(function (data) {
+            this_1.todoFactory.getAllForDate(dateString).subscribe(function (data) {
                 di.doneItems = data.filter(function (item) { return item.isCompleted; });
                 di.undoneItems = data.filter(function (item) { return !item.isCompleted; });
             });
         };
+        var this_1 = this;
         for (var _i = 0, _a = this.dateInfo; _i < _a.length; _i++) {
             var di = _a[_i];
             _loop_1(di);
@@ -118,7 +118,7 @@ var AppComponent = (function () {
             var _a = picker.value.split("/"), month = _a[0], day = _a[1], year = _a[2];
             var dateObj_1 = new Date(year, month - 1, day);
             _todo.date = month + "-" + day + "-" + year;
-            todos_factory_1.TodoFactory.save(_todo).then(function (data) {
+            this.todoFactory.save(_todo).subscribe(function (data) {
                 _this.dateInfo[dateObj_1.getDay()].undoneItems.push(data);
                 todoText.value = '';
             });
@@ -141,7 +141,7 @@ var AppComponent = (function () {
             date: todo.date,
             isCompleted: todo.isCompleted
         };
-        todos_factory_1.TodoFactory.update(_todo).then(function (data) { _this.setEditState(todo, false); });
+        this.todoFactory.update(_todo).subscribe(function (data) { _this.setEditState(todo, false); });
     };
     AppComponent.prototype.updateStatus = function (todo, item) {
         var _todo = {
@@ -163,7 +163,7 @@ var AppComponent = (function () {
             this.dateInfo[day].undoneItems.push(todo);
             this.dateInfo[day].doneItems.splice(this.dateInfo[day].doneItems.findIndex(function (item) { return item._id == todo._id; }), 1);
         }
-        todos_factory_1.TodoFactory.update(_todo).then(function (data) {
+        this.todoFactory.update(_todo).subscribe(function (data) {
             todo.isCompleted = !todo.isCompleted;
         });
     };
@@ -172,7 +172,7 @@ var AppComponent = (function () {
         var _a = todo.date.split("-"), month = _a[0], date = _a[1], year = _a[2];
         var dateObj = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(date, 10));
         var day = dateObj.getDay();
-        todos_factory_1.TodoFactory.delete(todo._id).then(function (data) {
+        this.todoFactory.delete(todo._id).subscribe(function (data) {
             if (data.n == 1) {
                 for (var i = 0; i < _this.dateInfo[day].undoneItems.length; i++) {
                     if (_this.dateInfo[day].undoneItems[i]._id == todo._id) {
@@ -201,7 +201,7 @@ var AppComponent = (function () {
             templateUrl: './todo-app.component.html',
             styleUrls: ['./todo-app.component.css']
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [todos_factory_1.TodoFactory])
     ], AppComponent);
     return AppComponent;
 }());
