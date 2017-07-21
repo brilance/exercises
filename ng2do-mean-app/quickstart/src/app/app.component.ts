@@ -109,9 +109,6 @@ export class AppComponent{
 	}
 
 	addTodo(todoText:any, picker:any){
-		let dateString:string = '';
-		let labelString:string = '';
-
 		const _todo:Todo = {
 			text : todoText.value,
 			isCompleted : false,

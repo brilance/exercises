@@ -7,6 +7,7 @@
 	flex-flow:row nowrap;
 	margin:10px 0px;
 	max-width:500px;
+	padding:10px;
 }
 
 .col1{

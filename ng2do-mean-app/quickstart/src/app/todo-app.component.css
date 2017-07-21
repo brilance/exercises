@@ -6,12 +6,19 @@
 	display:flex;
 	flex-flow:row nowrap;
 	width:100%;
-	padding:15px;
 }
 
 .col{
 	flex-grow:1;
 	border:1px solid #ccc;
-	padding:10px;
 	min-width:100px;
+}
+
+.date, .day{
+	padding:5px 10px;
+	background-color:#eee;
+}
+
+.today .day, .today .date{
+	background-color:#7cbc8f;
 }

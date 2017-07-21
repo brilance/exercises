@@ -107,8 +107,6 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.addTodo = function (todoText, picker) {
         var _this = this;
-        var dateString = '';
-        var labelString = '';
         var _todo = {
             text: todoText.value,
             isCompleted: false,
