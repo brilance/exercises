@@ -6,12 +6,12 @@
         <div class="col2">
             <span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
             <input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
-            <input [hidden]="!todo.isEditMode" class="small" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
-            <input [hidden]="!todo.isEditMode" class="small" type="button" value="Cancel" (click)="setEditState(todo, false)">
+            <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+            <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Cancel" (click)="setEditState(todo, false)">
         </div>
         <div class="col3">
-            <input type="button" class="small" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
-            <input type="button" class="small" value="X" (click)="deleteTodo(todo)">
+            <input type="button" class="btn btn-default btn-xs " [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+            <input type="button" class="btn btn-default btn-xs " value="X" (click)="deleteTodo(todo)">
         </div>
     </div>
 </div>
@@ -23,12 +23,12 @@
         <div class="col2">
             <span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
             <input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
-            <input [hidden]="!todo.isEditMode" class="small" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
-            <input [hidden]="!todo.isEditMode" class="small" type="button" value="Cancel" (click)="setEditState(todo, false)">
+            <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+            <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Cancel" (click)="setEditState(todo, false)">
         </div>
         <div class="col3">
-            <input type="button" class="small" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
-            <input type="button" class="small" value="X" (click)="deleteTodo(todo)">
+            <input type="button" class="btn btn-default btn-xs " [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+            <input type="button" class="btn btn-default btn-xs " value="X" (click)="deleteTodo(todo)">
         </div>
     </div>
 </div>
