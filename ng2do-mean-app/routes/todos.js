@@ -5,27 +5,26 @@ const db = mongojs('mongodb://localhost:27017/ng2todoapp', ['todos']);
 
 //GET all todos
 router.get('/todos', function(req, res, next){
-	db.todos.find().sort({isCompleted:1}, function(err, todos){
-		if (err){
-			res.send(err);
-		}
-		else{
-			res.json(todos);
-		}
-	});
-});
-
-//GET all todos on a given date
-//TODO convert to query parameters
-router.get('/todos/:date', function(req, res, next){
-	db.todos.find({date:req.params.date}, function(err, todos){
-		if (err){
-			res.send(err);
-		}
-		else{
-			res.json(todos);
-		}
-	});
+	if (req.query.date){
+		db.todos.find({date:req.query.date}, function(err, todos){
+			if (err){
+				res.send(err);
+			}
+			else{
+				res.json(todos);
+			}
+		});
+	}
+	else{
+		db.todos.find().sort({isCompleted:1}, function(err, todos){
+			if (err){
+				res.send(err);
+			}
+			else{
+				res.json(todos);
+			}
+		});
+	}
 });
 
 //GET todo with given id

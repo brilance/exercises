@@ -7,7 +7,7 @@ exports.TodoFactory = {
     },
     getAllForDate: function (dateStr) {
         //dateStr format: m-d-yyyy
-        return xhr_factory_1.$http.get('/api/v1/todos/' + dateStr);
+        return xhr_factory_1.$http.get('/api/v1/todos?date=' + dateStr);
     },
     get: function (id) {
         return xhr_factory_1.$http.get('/api/v1/todo/' + id);
