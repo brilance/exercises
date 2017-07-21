@@ -30,3 +30,16 @@
 		width:100%;
 	}
 }
+
+@media (max-width:1024px) and (min-width:480px){
+	#outerContainer{
+		display:flex;
+		flex-flow:row wrap;
+		width:100%;
+	}
+
+	.col{
+		max-width:250px;
+		min-width:200px;
+	}
+}

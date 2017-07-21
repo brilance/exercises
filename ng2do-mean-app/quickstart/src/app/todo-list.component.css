@@ -3,30 +3,33 @@
 }
 
 .container{
-	display:flex;
-	flex-flow:row wrap;
 	margin:10px 0px;
 	max-width:150px;
 	padding:10px;
-	justify-content:space-between;
 }
 
 @media (max-width:480px){
 	.container{
+		display:flex;
+		flex-flow:row wrap;
+		margin:10px 0px;
 		max-width:480px;
+		padding:10px;
+		justify-content:space-between;
 	}
 }
 
 .col1{
-	flex-grow:2;
+	display:inline-block;
+	width:15px;
 }
 
 .col2{
-	flex-grow:2;
+	display:inline-block;
 }
 
 .col3{
-	flex-grow:2;
+	
 }
 
 .strike{
