@@ -2,14 +2,289 @@
 	<h1>MEAN Todo App</h1>
 	<div>
 		<div>
-			<input class="form-control input-lg" placeholder="Add a Todo" autofocus #todotext (keyup)="addTodoKey($event, todotext)">
-			<input type="button" value="Add" (click)="addTodoBtn(todotext)">
+			<input class="form-control input-lg" placeholder="Add a Todo" autofocus #todotext (keyup)="addTodoKey($event, todotext, dpInput)">
+			<md-input-container>
+				<input #dpInput mdInput [mdDatepicker]="picker" placeholder="Choose a date">
+				<button mdSuffix [mdDatepickerToggle]="picker"></button>
+			</md-input-container>
+			<md-datepicker #picker></md-datepicker>
+			<input type="button" value="Add" (click)="addTodoBtn(todotext, dpInput)">
 		</div>
 	</div>
-	<div [hidden]="undoneTodos.length > 0 || doneTodos.length > 0">
+	<!--<div [hidden]="undoneTodos.length > 0 || doneTodos.length > 0">
 		<h3>No Todos yet!</h3>
+	</div>-->
+	<div id="outerContainer">
+		<div class="col">
+			<div class="day">Sunday</div>
+			<div class="date">{{dateInfo[0].labelText}}</div>
+			<div class="todo-area" id="undoneItems0">
+				<div *ngFor="let todo of dateInfo[0].undoneItems" class="container" #item>
+					<div class="col1">
+						<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+					</div>
+					<div class="col2">
+						<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+						<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+						<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+						<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+					</div>
+					<div class="col3">
+						<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+						<input type="button" value="X" (click)="deleteTodo(todo)">
+					</div>
+				</div>
+				<div id="doneItems0">
+					<div *ngFor="let todo of dateInfo[0].doneItems" class="container" #item>
+						<div class="col1">
+							<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+						</div>
+						<div class="col2">
+							<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+							<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+							<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+							<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+						</div>
+						<div class="col3">
+							<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+							<input type="button" value="X" (click)="deleteTodo(todo)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="day">Monday</div>
+			<div class="date">{{dateInfo[1].labelText}}</div>
+			<div class="todo-area" id="undoneItems1">
+				<div *ngFor="let todo of dateInfo[1].undoneItems" class="container" #item>
+					<div class="col1">
+						<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+					</div>
+					<div class="col2">
+						<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+						<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+						<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+						<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+					</div>
+					<div class="col3">
+						<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+						<input type="button" value="X" (click)="deleteTodo(todo)">
+					</div>
+				</div>
+				<div id="doneItems1">
+					<div *ngFor="let todo of dateInfo[1].doneItems" class="container" #item>
+						<div class="col1">
+							<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+						</div>
+						<div class="col2">
+							<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+							<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+							<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+							<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+						</div>
+						<div class="col3">
+							<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+							<input type="button" value="X" (click)="deleteTodo(todo)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="day">Tuesday</div>
+			<div class="date">{{dateInfo[2].labelText}}</div>
+			<div class="todo-area" id="undoneItems2">
+				<div *ngFor="let todo of dateInfo[2].undoneItems" class="container" #item>
+					<div class="col1">
+						<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+					</div>
+					<div class="col2">
+						<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+						<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+						<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+						<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+					</div>
+					<div class="col3">
+						<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+						<input type="button" value="X" (click)="deleteTodo(todo)">
+					</div>
+				</div>
+				<div id="doneItems2">
+					<div *ngFor="let todo of dateInfo[2].doneItems" class="container" #item>
+						<div class="col1">
+							<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+						</div>
+						<div class="col2">
+							<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+							<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+							<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+							<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+						</div>
+						<div class="col3">
+							<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+							<input type="button" value="X" (click)="deleteTodo(todo)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="day">Wednesday</div>
+			<div class="date">{{dateInfo[3].labelText}}</div>
+			<div class="todo-area" id="undoneItems3">
+				<div *ngFor="let todo of dateInfo[3].undoneItems" class="container" #item>
+					<div class="col1">
+						<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+					</div>
+					<div class="col2">
+						<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+						<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+						<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+						<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+					</div>
+					<div class="col3">
+						<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+						<input type="button" value="X" (click)="deleteTodo(todo)">
+					</div>
+				</div>
+				<div id="doneItems3">
+					<div *ngFor="let todo of dateInfo[3].doneItems" class="container" #item>
+						<div class="col1">
+							<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+						</div>
+						<div class="col2">
+							<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+							<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+							<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+							<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+						</div>
+						<div class="col3">
+							<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+							<input type="button" value="X" (click)="deleteTodo(todo)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="day">Thursday</div>
+			<div class="date">{{dateInfo[4].labelText}}</div>
+			<div class="todo-area" id="undoneItems4">
+				<div *ngFor="let todo of dateInfo[4].undoneItems" class="container" #item>
+					<div class="col1">
+						<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+					</div>
+					<div class="col2">
+						<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+						<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+						<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+						<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+					</div>
+					<div class="col3">
+						<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+						<input type="button" value="X" (click)="deleteTodo(todo)">
+					</div>
+				</div>
+				<div id="doneItems4">
+					<div *ngFor="let todo of dateInfo[4].doneItems" class="container" #item>
+						<div class="col1">
+							<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+						</div>
+						<div class="col2">
+							<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+							<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+							<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+							<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+						</div>
+						<div class="col3">
+							<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+							<input type="button" value="X" (click)="deleteTodo(todo)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="day">Friday</div>
+			<div class="date">{{dateInfo[5].labelText}}</div>
+			<div class="todo-area" id="undoneItems5">
+				<div *ngFor="let todo of dateInfo[5].undoneItems" class="container" #item>
+					<div class="col1">
+						<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+					</div>
+					<div class="col2">
+						<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+						<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+						<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+						<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+					</div>
+					<div class="col3">
+						<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+						<input type="button" value="X" (click)="deleteTodo(todo)">
+					</div>
+				</div>
+				<div id="doneItems5">
+					<div *ngFor="let todo of dateInfo[5].doneItems" class="container" #item>
+						<div class="col1">
+							<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+						</div>
+						<div class="col2">
+							<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+							<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+							<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+							<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+						</div>
+						<div class="col3">
+							<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+							<input type="button" value="X" (click)="deleteTodo(todo)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="day">Saturday</div>
+			<div class="date">{{dateInfo[6].labelText}}</div>
+			<div class="todo-area" id="undoneItems6">
+				<div *ngFor="let todo of dateInfo[6].undoneItems" class="container" #item>
+					<div class="col1">
+						<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+					</div>
+					<div class="col2">
+						<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+						<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+						<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+						<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+					</div>
+					<div class="col3">
+						<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+						<input type="button" value="X" (click)="deleteTodo(todo)">
+					</div>
+				</div>
+				<div id="doneItems6">
+					<div *ngFor="let todo of dateInfo[6].doneItems" class="container" #item>
+						<div class="col1">
+							<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+						</div>
+						<div class="col2">
+							<span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+							<input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+							<input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+							<input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+						</div>
+						<div class="col3">
+							<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+							<input type="button" value="X" (click)="deleteTodo(todo)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div id="todoItems">
+
+
+	<!--<div id="todoItems">
 		<div *ngFor="let todo of undoneTodos" class="container" #item>
 			<div class="col1">
 				<input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
@@ -22,7 +297,7 @@
 			</div>
 			<div class="col3">
 				<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
-				<input type="button" value="Delete" (click)="deleteTodo(todo)">
+				<input type="button" value="X" (click)="deleteTodo(todo)">
 			</div>
 		</div>
 	</div>
@@ -39,8 +314,8 @@
 			</div>
 			<div class="col3">
 				<input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
-				<input type="button" value="Delete" (click)="deleteTodo(todo)">
+				<input type="button" value="X" (click)="deleteTodo(todo)">
 			</div>
 		</div>
-	</div>
+	</div>-->
 </div>

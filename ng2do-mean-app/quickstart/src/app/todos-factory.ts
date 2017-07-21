@@ -7,6 +7,11 @@ export const TodoFactory = {
 		return $http.get('/api/v1/todos');
 	},
 
+	getAllForDate: function(dateStr:string){
+		//dateStr format: m-d-yyyy
+		return $http.get('/api/v1/todos/'+dateStr);
+	},
+
 	get: function(id:string){
 		return $http.get('/api/v1/todo/'+id);
 	},

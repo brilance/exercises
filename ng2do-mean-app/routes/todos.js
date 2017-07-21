@@ -15,6 +15,19 @@ router.get('/todos', function(req, res, next){
 	});
 });
 
+//GET all todos on a given date
+//TODO convert to query parameters
+router.get('/todos/:date', function(req, res, next){
+	db.todos.find({date:req.params.date}, function(err, todos){
+		if (err){
+			res.send(err);
+		}
+		else{
+			res.json(todos);
+		}
+	});
+});
+
 //GET todo with given id
 router.get('/todo/:id', function(req, res, next){
 	db.todos.findOne({
@@ -60,6 +73,9 @@ router.put('/todo/:id', function(req, res, next){
 	}
 	if (todo.text){
 		updObj.text = todo.text;
+	}
+	if (todo.date){
+		updObj.date = todo.date;
 	}
 
 	if (!updObj.text){

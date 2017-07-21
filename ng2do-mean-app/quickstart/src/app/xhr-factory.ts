@@ -2,7 +2,7 @@ export const $http = {
 	get: function(url:string){
 		return _sendRequest(url, null, 'GET');
 	},
-	 post: function(url: string, payload: any){
+	post: function(url: string, payload: any){
     	return _sendRequest(url, payload, 'POST');
     },
     put: function(url: string, payload: any){

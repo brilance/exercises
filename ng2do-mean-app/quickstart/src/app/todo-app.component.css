@@ -1,5 +1,16 @@
+*{
+	box-sizing: border-box; 
+}
+
 .strike{
 	text-decoration:line-through;
+}
+
+#outerContainer{
+	display:flex;
+	flex-flow:row nowrap;
+	width:100%;
+	padding:15px;
 }
 
 .container{
@@ -7,6 +18,13 @@
 	flex-flow:row nowrap;
 	margin:10px 0px;
 	max-width:500px;
+}
+
+.col{
+	flex-grow:1;
+	border:1px solid #ccc;
+	padding:10px;
+	min-width:100px;
 }
 
 .col1{

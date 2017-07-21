@@ -3,4 +3,5 @@ export class Todo{
 	isCompleted:boolean;
 	_id?:string;
 	isEditMode?:boolean;
+	date?:string
 }

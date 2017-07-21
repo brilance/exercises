@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.$http = {
     get: function (url) {
         return _sendRequest(url, null, 'GET');

@@ -1,8 +1,13 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var xhr_factory_1 = require("./xhr-factory");
 exports.TodoFactory = {
     getAll: function () {
         return xhr_factory_1.$http.get('/api/v1/todos');
+    },
+    getAllForDate: function (dateStr) {
+        //dateStr format: m-d-yyyy
+        return xhr_factory_1.$http.get('/api/v1/todos/' + dateStr);
     },
     get: function (id) {
         return xhr_factory_1.$http.get('/api/v1/todo/' + id);
