@@ -17,9 +17,9 @@ var AppComponent = (function () {
         this.todoFactory = todoFactory;
         this.monthLookup = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         this.dateInfo = [];
-        this.getTodayItems();
+        this.getDailyItems();
     }
-    AppComponent.prototype.getTodayItems = function () {
+    AppComponent.prototype.getDailyItems = function () {
         var now = new Date();
         var dayOfWeek = now.getDay();
         var todayDate = now.getDate();
@@ -122,77 +122,6 @@ var AppComponent = (function () {
                 _this.dateInfo[dateObj_1.getDay()].undoneItems.push(data);
                 todoText.value = '';
             });
-        }
-    };
-    AppComponent.prototype.updateTodoTextKey = function ($event, edittext, todo) {
-        if ($event.which === 13) {
-            this.updateTodoText(edittext, todo);
-        }
-    };
-    AppComponent.prototype.updateTodoTextBtn = function (edittext, todo) {
-        this.updateTodoText(edittext, todo);
-    };
-    AppComponent.prototype.updateTodoText = function (edittext, todo) {
-        var _this = this;
-        todo.text = edittext.value;
-        var _todo = {
-            _id: todo._id,
-            text: todo.text,
-            date: todo.date,
-            isCompleted: todo.isCompleted
-        };
-        this.todoFactory.update(_todo).subscribe(function (data) { _this.setEditState(todo, false); });
-    };
-    AppComponent.prototype.updateStatus = function (todo, item) {
-        var _todo = {
-            _id: todo._id,
-            text: todo.text,
-            date: todo.date,
-            isCompleted: !todo.isCompleted
-        };
-        var _a = todo.date.split("-"), month = _a[0], date = _a[1], year = _a[2];
-        var dateObj = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(date, 10));
-        var day = dateObj.getDay();
-        if (!todo.isCompleted) {
-            document.querySelector("#doneItems" + day).appendChild(item);
-            this.dateInfo[day].doneItems.push(todo);
-            this.dateInfo[day].undoneItems.splice(this.dateInfo[day].undoneItems.findIndex(function (item) { return item._id == todo._id; }), 1);
-        }
-        else {
-            document.querySelector("#undoneItems" + day).appendChild(item);
-            this.dateInfo[day].undoneItems.push(todo);
-            this.dateInfo[day].doneItems.splice(this.dateInfo[day].doneItems.findIndex(function (item) { return item._id == todo._id; }), 1);
-        }
-        this.todoFactory.update(_todo).subscribe(function (data) {
-            todo.isCompleted = !todo.isCompleted;
-        });
-    };
-    AppComponent.prototype.deleteTodo = function (todo) {
-        var _this = this;
-        var _a = todo.date.split("-"), month = _a[0], date = _a[1], year = _a[2];
-        var dateObj = new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(date, 10));
-        var day = dateObj.getDay();
-        this.todoFactory.delete(todo._id).subscribe(function (data) {
-            if (data.n == 1) {
-                for (var i = 0; i < _this.dateInfo[day].undoneItems.length; i++) {
-                    if (_this.dateInfo[day].undoneItems[i]._id == todo._id) {
-                        _this.dateInfo[day].undoneItems.splice(i, 1);
-                    }
-                }
-                for (var i = 0; i < _this.dateInfo[day].doneItems.length; i++) {
-                    if (_this.dateInfo[day].doneItems[i]._id == todo._id) {
-                        _this.dateInfo[day].doneItems.splice(i, 1);
-                    }
-                }
-            }
-        });
-    };
-    AppComponent.prototype.setEditState = function (todo, state) {
-        if (state) {
-            todo.isEditMode = state;
-        }
-        else {
-            delete todo.isEditMode;
         }
     };
     AppComponent = __decorate([

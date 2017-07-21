@@ -1,0 +1,34 @@
+<div id="{{'undoneItems'+day}}">
+    <div *ngFor="let todo of undoneItems" class="container" #item>
+        <div class="col1">
+            <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+        </div>
+        <div class="col2">
+            <span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+            <input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+            <input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+            <input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+        </div>
+        <div class="col3">
+            <input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+            <input type="button" value="X" (click)="deleteTodo(todo)">
+        </div>
+    </div>
+</div>
+<div id="{{'doneItems'+day}}">
+    <div *ngFor="let todo of doneItems" class="container" #item>
+        <div class="col1">
+            <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
+        </div>
+        <div class="col2">
+            <span [class.strike]="todo.isCompleted" [hidden]="todo.isEditMode">{{todo.text}}</span>
+            <input class="editBox" [hidden]="!todo.isEditMode" type="text" [value]="todo.text" (keypress)="updateTodoTextKey($event, edittext, todo);" #edittext>
+            <input [hidden]="!todo.isEditMode" type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
+            <input [hidden]="!todo.isEditMode" type="button" value="Cancel" (click)="setEditState(todo, false)">
+        </div>
+        <div class="col3">
+            <input type="button" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+            <input type="button" value="X" (click)="deleteTodo(todo)">
+        </div>
+    </div>
+</div>

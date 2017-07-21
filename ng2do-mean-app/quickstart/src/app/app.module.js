@@ -12,6 +12,7 @@ var animations_1 = require("@angular/platform-browser/animations");
 var material_1 = require("@angular/material");
 var http_1 = require("@angular/common/http");
 var todos_factory_1 = require("./todos-factory");
+var todo_list_component_1 = require("./todo-list.component");
 var app_component_1 = require("./app.component");
 var AppModule = (function () {
     function AppModule() {
@@ -19,7 +20,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, http_1.HttpClientModule, animations_1.BrowserAnimationsModule, material_1.MdNativeDateModule, material_1.MdDatepickerModule, material_1.MdInputModule],
-            declarations: [app_component_1.AppComponent],
+            declarations: [app_component_1.AppComponent, todo_list_component_1.TodoListComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [todos_factory_1.TodoFactory]
         })

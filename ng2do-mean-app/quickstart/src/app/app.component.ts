@@ -16,10 +16,10 @@ export class AppComponent{
 
 	constructor(private todoFactory:TodoFactory){
 		this.dateInfo = [];
-		this.getTodayItems();
+		this.getDailyItems();
 	}
 
-	getTodayItems(){
+	getDailyItems(){
 		const now = new Date();
 		const dayOfWeek = now.getDay();
 		const todayDate = now.getDate();
@@ -127,85 +127,6 @@ export class AppComponent{
 				this.dateInfo[dateObj.getDay()].undoneItems.push(data);
 				todoText.value = '';
 			});
-		}
-	}
-
-	updateTodoTextKey($event:any, edittext:any, todo:Todo){
-		if ($event.which === 13){
-			this.updateTodoText(edittext, todo);	
-		}
-	}
-
-	updateTodoTextBtn(edittext:any, todo:Todo){
-		this.updateTodoText(edittext, todo);
-	}
-
-	updateTodoText(edittext:any, todo:Todo){
-		todo.text = edittext.value;
-		const _todo = {
-			_id : todo._id,
-			text: todo.text,
-			date: todo.date,
-			isCompleted : todo.isCompleted
-		};
-		this.todoFactory.update(_todo).subscribe((data:any) => {this.setEditState(todo, false);});
-	}
-
-	updateStatus(todo:Todo, item:any){
-		const _todo = {
-			_id : todo._id,
-			text: todo.text,
-			date: todo.date,
-			isCompleted : !todo.isCompleted
-		};
-
-		const [month,date,year] = todo.date.split("-");
-		const dateObj = new Date(parseInt(year,10),parseInt(month,10)-1,parseInt(date,10));
-		const day = dateObj.getDay();
-
-		if (!todo.isCompleted){
-			document.querySelector("#doneItems"+day).appendChild(item);
-			this.dateInfo[day].doneItems.push(todo);
-			this.dateInfo[day].undoneItems.splice(this.dateInfo[day].undoneItems.findIndex((item:Todo) => item._id == todo._id), 1);
-		}
-		else{
-			document.querySelector("#undoneItems"+day).appendChild(item);
-			this.dateInfo[day].undoneItems.push(todo);
-			this.dateInfo[day].doneItems.splice(this.dateInfo[day].doneItems.findIndex((item:Todo) => item._id == todo._id), 1);
-		}
-
-		this.todoFactory.update(_todo).subscribe( (data:any) => {
-			todo.isCompleted = !todo.isCompleted;
-		});
-	}
-
-	deleteTodo(todo:Todo){
-		const [month,date,year] = todo.date.split("-");
-		const dateObj = new Date(parseInt(year,10),parseInt(month,10)-1,parseInt(date,10));
-		const day = dateObj.getDay();
-
-		this.todoFactory.delete(todo._id).subscribe((data:any)=>{
-			if (data.n == 1){
-				for (let i = 0; i < this.dateInfo[day].undoneItems.length; i++){
-					if (this.dateInfo[day].undoneItems[i]._id == todo._id){
-						this.dateInfo[day].undoneItems.splice(i, 1);
-					}
-				}
-				for (let i = 0; i < this.dateInfo[day].doneItems.length; i++){
-					if (this.dateInfo[day].doneItems[i]._id == todo._id){
-						this.dateInfo[day].doneItems.splice(i, 1);
-					}
-				}
-			}
-		});
-	}
-
-	setEditState(todo:Todo, state:boolean){
-		if (state){
-			todo.isEditMode = state;
-		}
-		else{
-			delete todo.isEditMode;
 		}
 	}
 }

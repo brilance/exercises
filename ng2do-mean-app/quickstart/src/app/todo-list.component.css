@@ -1,0 +1,27 @@
+*{
+	box-sizing: border-box; 
+}
+
+.container{
+	display:flex;
+	flex-flow:row nowrap;
+	margin:10px 0px;
+	max-width:500px;
+}
+
+.col1{
+	flex-grow:1;
+}
+
+.col2{
+	flex-grow:3;
+	width:150px;
+}
+
+.col3{
+	flex-grow:2;
+}
+
+.strike{
+	text-decoration:line-through;
+}
