@@ -36,10 +36,10 @@ var AppComponent = (function () {
         dateInfo.doneItems = [];
         dateInfo.undoneItems = [];
         dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
-        this.dateInfo[2] = dateInfo;
+        this.dateInfo[1] = dateInfo;
         //fill forward in the week
-        var daysFwd = 6;
-        var counter = 2;
+        var daysFwd = 5;
+        var counter = 1;
         var dateIter = todayDate;
         var monthIter = theMonth;
         var yearIter = theYear;
@@ -68,7 +68,7 @@ var AppComponent = (function () {
             this.dateInfo[counter] = dateInfo_1;
         }
         //fill backward in the week
-        var daysBack = 2;
+        var daysBack = 1;
         dateIter = todayDate;
         monthIter = theMonth;
         yearIter = theYear;
@@ -130,10 +130,16 @@ var AppComponent = (function () {
         };
         if (picker.value != '') {
             var _a = picker.value.split("/"), month = _a[0], day = _a[1], year = _a[2];
-            var dateObj_1 = new Date(year, month - 1, day);
+            var dateObj = new Date(year, month - 1, day);
             _todo.date = month + "-" + day + "-" + year;
             this.todoFactory.save(_todo).subscribe(function (data) {
-                _this.dateInfo[dateObj_1.getDay()].undoneItems.push(data);
+                //this.dateInfo[dateObj.getDay()].undoneItems.push(data);
+                for (var _i = 0, _a = _this.dateInfo; _i < _a.length; _i++) {
+                    var di = _a[_i];
+                    if (di.linkText == _todo.date) {
+                        di.undoneItems.push(data);
+                    }
+                }
                 todoText.value = '';
             });
         }

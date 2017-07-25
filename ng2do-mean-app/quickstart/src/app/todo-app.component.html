@@ -11,9 +11,12 @@
 			<input type="button" value="Add" (click)="addTodoBtn(todotext, dpInput)">
 		</div>
 	</div>
-	<!--<div [hidden]="undoneTodos.length > 0 || doneTodos.length > 0">
-		<h3>No Todos yet!</h3>
-	</div>-->
+	<button type="button" class="btn btn-default" id="btn-back">
+		<span class="glyphicon glyphicon-menu-left"></span>
+	</button>
+	<button type="button" class="btn btn-default" id="btn-fwd">
+		<span class="glyphicon glyphicon-menu-right"></span>
+	</button>
 	<div id="outerContainer">
 		<div class="col" [ngClass]="{'today':todayDate==dateInfo[0].labelText}">
 			<div class="day">{{dateInfo[0].dayOfWeek}}</div>
@@ -55,13 +58,6 @@
 			<div class="date">{{dateInfo[5].labelText}}</div>
 			<div class="todo-area">
 				<todo-list [day]=5 [undoneItems]=dateInfo[5].undoneItems [doneItems]=dateInfo[5].doneItems></todo-list>
-			</div>
-		</div>
-		<div class="col" [ngClass]="{'today':todayDate==dateInfo[6].labelText}">
-			<div class="day">{{dateInfo[6].dayOfWeek}}</div>
-			<div class="date">{{dateInfo[6].labelText}}</div>
-			<div class="todo-area">
-				<todo-list [day]=6 [undoneItems]=dateInfo[6].undoneItems [doneItems]=dateInfo[6].doneItems></todo-list>
 			</div>
 		</div>
 	</div>

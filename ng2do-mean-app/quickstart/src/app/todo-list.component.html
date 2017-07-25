@@ -1,3 +1,6 @@
+<div [hidden]="undoneItems.length > 0 || doneItems.length > 0">
+    <span class="alert alert-info no-todos">No Todos today.</span>
+</div>
 <div id="{{'undoneItems'+day}}">
     <div *ngFor="let todo of undoneItems" class="container" #item>
         <div class="col1">

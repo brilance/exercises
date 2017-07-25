@@ -37,11 +37,11 @@ export class AppComponent{
 		dateInfo.doneItems = [];
 		dateInfo.undoneItems = [];
 		dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
-		this.dateInfo[2] = dateInfo;
+		this.dateInfo[1] = dateInfo;
 
 		//fill forward in the week
-		let daysFwd = 6;
-		let counter = 2;
+		let daysFwd = 5;
+		let counter = 1;
 		let dateIter = todayDate;
 		let monthIter = theMonth;
 		let yearIter = theYear;
@@ -71,7 +71,7 @@ export class AppComponent{
 		}
 
 		//fill backward in the week
-		let daysBack = 2;
+		let daysBack = 1;
 		dateIter = todayDate;
 		monthIter = theMonth;
 		yearIter = theYear;
@@ -136,7 +136,12 @@ export class AppComponent{
 			_todo.date = month+"-"+day+"-"+year;
 
 			this.todoFactory.save(_todo).subscribe( (data:Todo) => {
-				this.dateInfo[dateObj.getDay()].undoneItems.push(data);
+				//this.dateInfo[dateObj.getDay()].undoneItems.push(data);
+				for (let di of this.dateInfo){
+					if (di.linkText == _todo.date){
+						di.undoneItems.push(data);
+					}
+				}
 				todoText.value = '';
 			});
 		}
