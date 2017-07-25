@@ -86,6 +86,12 @@ var TodoListComponent = (function () {
             }
         });
     };
+    TodoListComponent.prototype.showButtons = function ($event) {
+        $event.currentTarget.querySelector(".col3").classList.remove("invisible");
+    };
+    TodoListComponent.prototype.hideButtons = function ($event) {
+        $event.currentTarget.querySelector(".col3").classList.add("invisible");
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Array)

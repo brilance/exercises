@@ -100,4 +100,12 @@ export class TodoListComponent{
 			}
 		});
 	}
+
+	showButtons($event:any){
+		$event.currentTarget.querySelector(".col3").classList.remove("invisible");
+	}
+
+	hideButtons($event:any){
+		$event.currentTarget.querySelector(".col3").classList.add("invisible");
+	}
 }

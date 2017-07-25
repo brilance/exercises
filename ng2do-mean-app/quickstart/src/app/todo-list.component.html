@@ -2,7 +2,7 @@
     <span class="alert alert-info no-todos">No Todos today.</span>
 </div>
 <div id="{{'undoneItems'+day}}">
-    <div *ngFor="let todo of undoneItems" class="container" #item>
+    <div *ngFor="let todo of undoneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event)>
         <div class="col1">
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
         </div>
@@ -12,14 +12,14 @@
             <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
             <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Cancel" (click)="setEditState(todo, false)">
         </div>
-        <div class="col3">
-            <input type="button" class="btn btn-default btn-xs " [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
-            <input type="button" class="btn btn-default btn-xs " value="X" (click)="deleteTodo(todo)">
+        <div class="col3 invisible">
+            <input type="button" class="btn btn-default btn-xs" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+            <input type="button" class="btn btn-default btn-xs" value="X" (click)="deleteTodo(todo)">
         </div>
     </div>
 </div>
 <div id="{{'doneItems'+day}}">
-    <div *ngFor="let todo of doneItems" class="container" #item>
+    <div *ngFor="let todo of doneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event)>
         <div class="col1">
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
         </div>
@@ -29,9 +29,9 @@
             <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Save" (click)="updateTodoTextBtn(edittext, todo);">
             <input [class.hidden]="!todo.isEditMode" class="btn btn-default btn-xs " type="button" value="Cancel" (click)="setEditState(todo, false)">
         </div>
-        <div class="col3">
-            <input type="button" class="btn btn-default btn-xs " [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
-            <input type="button" class="btn btn-default btn-xs " value="X" (click)="deleteTodo(todo)">
+        <div class="col3 invisible">
+            <input type="button" class="btn btn-default btn-xs" [disabled]="todo.isCompleted" value="Edit" (click)="setEditState(todo, true)">
+            <input type="button" class="btn btn-default btn-xs" value="X" (click)="deleteTodo(todo)">
         </div>
     </div>
 </div>
