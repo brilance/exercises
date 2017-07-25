@@ -13,6 +13,7 @@ export class AppComponent{
 	todayDate:string;
 	dateInfo:Array<DateInfo>;
 	monthLookup:Array<string> = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	dayOfWeekLookup:Array<string> = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 	constructor(private todoFactory:TodoFactory){
 		this.dateInfo = [];
@@ -35,16 +36,23 @@ export class AppComponent{
 		dateInfo.labelText = this.todayDate;
 		dateInfo.doneItems = [];
 		dateInfo.undoneItems = [];
-		this.dateInfo[dayOfWeek] = dateInfo;
+		dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
+		this.dateInfo[2] = dateInfo;
 
 		//fill forward in the week
-		let dayIter = dayOfWeek;
+		let daysFwd = 6;
+		let counter = 2;
 		let dateIter = todayDate;
 		let monthIter = theMonth;
 		let yearIter = theYear;
-		while (dayIter <= 6){
-			dayIter++;
+		let dayIter = dayOfWeek;
+		while (counter < daysFwd){
+			counter++;
 			dateIter++;
+			dayIter++;
+			if (dayIter > 6){
+				dayIter = 0;
+			}
 			if (dateIter > daysInMonth){
 				dateIter = 1;
 				monthIter++;
@@ -58,17 +66,23 @@ export class AppComponent{
 			dateInfo.labelText = this.monthLookup[monthIter]+" "+dateIter;
 			dateInfo.doneItems = [];
 			dateInfo.undoneItems = [];
-			this.dateInfo[dayIter] = dateInfo;
+			dateInfo.dayOfWeek = this.dayOfWeekLookup[dayIter];
+			this.dateInfo[counter] = dateInfo;
 		}
 
 		//fill backward in the week
-		dayIter = dayOfWeek;
+		let daysBack = 2;
 		dateIter = todayDate;
 		monthIter = theMonth;
 		yearIter = theYear;
-		while (dayIter >= 0){
-			dayIter--;
+		dayIter = dayOfWeek;
+		while (daysBack > 0){
+			daysBack--;
 			dateIter--;
+			dayIter--;
+			if (dayIter < 0){
+				dayIter = 6;
+			}
 			if (dateIter < 1){
 				dateIter = daysInLastMonth;
 				monthIter--;
@@ -82,9 +96,10 @@ export class AppComponent{
 			dateInfo.labelText = this.monthLookup[monthIter]+" "+dateIter;
 			dateInfo.doneItems = [];
 			dateInfo.undoneItems = [];
-			this.dateInfo[dayIter] = dateInfo;
+			dateInfo.dayOfWeek = this.dayOfWeekLookup[dayIter];
+			this.dateInfo[daysBack] = dateInfo;
 		}
-
+		console.log(this.dateInfo);
 		this.fetchTodos();
 	}
 

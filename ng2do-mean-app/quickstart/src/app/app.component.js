@@ -16,6 +16,7 @@ var AppComponent = (function () {
     function AppComponent(todoFactory) {
         this.todoFactory = todoFactory;
         this.monthLookup = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        this.dayOfWeekLookup = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         this.dateInfo = [];
         this.getDailyItems();
     }
@@ -34,15 +35,22 @@ var AppComponent = (function () {
         dateInfo.labelText = this.todayDate;
         dateInfo.doneItems = [];
         dateInfo.undoneItems = [];
-        this.dateInfo[dayOfWeek] = dateInfo;
+        dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
+        this.dateInfo[2] = dateInfo;
         //fill forward in the week
-        var dayIter = dayOfWeek;
+        var daysFwd = 6;
+        var counter = 2;
         var dateIter = todayDate;
         var monthIter = theMonth;
         var yearIter = theYear;
-        while (dayIter <= 6) {
-            dayIter++;
+        var dayIter = dayOfWeek;
+        while (counter < daysFwd) {
+            counter++;
             dateIter++;
+            dayIter++;
+            if (dayIter > 6) {
+                dayIter = 0;
+            }
             if (dateIter > daysInMonth) {
                 dateIter = 1;
                 monthIter++;
@@ -56,16 +64,22 @@ var AppComponent = (function () {
             dateInfo_1.labelText = this.monthLookup[monthIter] + " " + dateIter;
             dateInfo_1.doneItems = [];
             dateInfo_1.undoneItems = [];
-            this.dateInfo[dayIter] = dateInfo_1;
+            dateInfo_1.dayOfWeek = this.dayOfWeekLookup[dayIter];
+            this.dateInfo[counter] = dateInfo_1;
         }
         //fill backward in the week
-        dayIter = dayOfWeek;
+        var daysBack = 2;
         dateIter = todayDate;
         monthIter = theMonth;
         yearIter = theYear;
-        while (dayIter >= 0) {
-            dayIter--;
+        dayIter = dayOfWeek;
+        while (daysBack > 0) {
+            daysBack--;
             dateIter--;
+            dayIter--;
+            if (dayIter < 0) {
+                dayIter = 6;
+            }
             if (dateIter < 1) {
                 dateIter = daysInLastMonth;
                 monthIter--;
@@ -79,8 +93,10 @@ var AppComponent = (function () {
             dateInfo_2.labelText = this.monthLookup[monthIter] + " " + dateIter;
             dateInfo_2.doneItems = [];
             dateInfo_2.undoneItems = [];
-            this.dateInfo[dayIter] = dateInfo_2;
+            dateInfo_2.dayOfWeek = this.dayOfWeekLookup[dayIter];
+            this.dateInfo[daysBack] = dateInfo_2;
         }
+        console.log(this.dateInfo);
         this.fetchTodos();
     };
     AppComponent.prototype.fetchTodos = function () {

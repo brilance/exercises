@@ -5,4 +5,5 @@ export class DateInfo{
     linkText:string;
     doneItems:Array<Todo>;
     undoneItems:Array<Todo>;
+    dayOfWeek:string;
 }
