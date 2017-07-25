@@ -31,14 +31,12 @@ var AppComponent = (function () {
         //fill in today's date
         this.todayDate = this.monthLookup[theMonth] + " " + todayDate;
         this.createDateInfo(theMonth, todayDate, theYear, dayOfWeek, 1);
-        this.fillForward(todayDate, theMonth, theYear, dayOfWeek, daysInMonth);
-        this.fillBackward(todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth);
+        this.fillForward(1, 4, todayDate, theMonth, theYear, dayOfWeek, daysInMonth);
+        this.fillBackward(1, todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth);
         this.fetchTodos();
     };
-    AppComponent.prototype.fillForward = function (todayDate, theMonth, theYear, dayOfWeek, daysInMonth) {
+    AppComponent.prototype.fillForward = function (counter, daysFwd, todayDate, theMonth, theYear, dayOfWeek, daysInMonth) {
         //fill forward in the week
-        var daysFwd = 4;
-        var counter = 1;
         var dateIter = todayDate;
         var monthIter = theMonth;
         var yearIter = theYear;
@@ -61,9 +59,8 @@ var AppComponent = (function () {
             this.createDateInfo(monthIter, dateIter, yearIter, dayIter, counter);
         }
     };
-    AppComponent.prototype.fillBackward = function (todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth) {
+    AppComponent.prototype.fillBackward = function (daysBack, todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth) {
         //fill backward in the week
-        var daysBack = 1;
         var dateIter = todayDate;
         var monthIter = theMonth;
         var yearIter = theYear;
@@ -139,28 +136,7 @@ var AppComponent = (function () {
         var startDate = new Date(yearInt, monthInt, dayInt);
         var daysInMonth = new Date(yearInt, monthInt + 1, 0).getDate();
         var dayOfWeek = startDate.getDay();
-        var counter = -1;
-        var dayIter = dayInt;
-        var monthIter = monthInt;
-        var yearIter = yearInt;
-        var dayWeekIter = dayOfWeek;
-        while (counter < 5) {
-            counter++;
-            dayIter++;
-            dayWeekIter++;
-            if (dayWeekIter > 6) {
-                dayWeekIter = 0;
-            }
-            if (dayIter > daysInMonth) {
-                dayIter = 1;
-                monthIter++;
-            }
-            if (monthIter > 11) {
-                monthIter = 0;
-                yearIter++;
-            }
-            this.createDateInfo(monthIter, dayIter, yearIter, dayWeekIter, counter);
-        }
+        this.fillForward(-1, 5, dayInt, monthInt, yearInt, dayOfWeek, daysInMonth);
         this.fetchTodos();
     };
     AppComponent.prototype.goBackward = function ($event) {
@@ -172,27 +148,7 @@ var AppComponent = (function () {
         var daysInLastMonth = new Date(yearInt, monthInt, 0).getDate();
         var dayOfWeek = startDate.getDay();
         var counter = 5;
-        var dayIter = dayInt;
-        var monthIter = monthInt;
-        var yearIter = yearInt;
-        var dayWeekIter = dayOfWeek;
-        while (counter > 0) {
-            counter--;
-            dayIter--;
-            dayWeekIter--;
-            if (dayWeekIter < 0) {
-                dayWeekIter = 6;
-            }
-            if (dayIter < 1) {
-                dayIter = daysInLastMonth;
-                monthIter--;
-            }
-            if (monthIter < 0) {
-                monthIter = 11;
-                yearIter--;
-            }
-            this.createDateInfo(monthIter, dayIter, yearIter, dayWeekIter, counter);
-        }
+        this.fillBackward(counter, dayInt, monthInt, yearInt, dayOfWeek, daysInLastMonth);
         this.fetchTodos();
     };
     AppComponent.prototype.createDateInfo = function (month, day, year, dayOfWeek, counter) {

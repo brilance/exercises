@@ -34,16 +34,14 @@ export class AppComponent{
 
 		this.createDateInfo(theMonth, todayDate, theYear, dayOfWeek, 1);
 
-		this.fillForward(todayDate, theMonth, theYear, dayOfWeek, daysInMonth);
-		this.fillBackward(todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth);
+		this.fillForward(1, 4, todayDate, theMonth, theYear, dayOfWeek, daysInMonth);
+		this.fillBackward(1, todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth);
 		
 		this.fetchTodos();
 	}
 
-	fillForward(todayDate:number, theMonth:number, theYear:number, dayOfWeek:number, daysInMonth:number){
+	fillForward(counter:number, daysFwd:number, todayDate:number, theMonth:number, theYear:number, dayOfWeek:number, daysInMonth:number){
 		//fill forward in the week
-		let daysFwd = 4;
-		let counter = 1;
 		let dateIter = todayDate;
 		let monthIter = theMonth;
 		let yearIter = theYear;
@@ -68,13 +66,13 @@ export class AppComponent{
 		}
 	}
 
-	fillBackward(todayDate:number, theMonth:number, theYear:number, dayOfWeek:number, daysInLastMonth:number){
+	fillBackward(daysBack:number, todayDate:number, theMonth:number, theYear:number, dayOfWeek:number, daysInLastMonth:number){
 		//fill backward in the week
-		let daysBack = 1;
 		let dateIter = todayDate;
 		let monthIter = theMonth;
 		let yearIter = theYear;
 		let dayIter = dayOfWeek;
+		
 		while (daysBack > 0){
 			daysBack--;
 			dateIter--;
@@ -148,30 +146,7 @@ export class AppComponent{
 		const daysInMonth = new Date(yearInt, monthInt+1, 0).getDate();
 		const dayOfWeek = startDate.getDay();
 
-		let counter = -1;
-		let dayIter = dayInt;
-		let monthIter = monthInt;
-		let yearIter = yearInt;
-		let dayWeekIter = dayOfWeek;
-		while (counter < 5){
-			counter++;
-			dayIter++;
-			dayWeekIter++;
-			
-			if (dayWeekIter > 6){
-				dayWeekIter = 0;
-			}
-			if (dayIter > daysInMonth){
-				dayIter = 1;
-				monthIter++;
-			}
-			if (monthIter > 11){
-				monthIter = 0;
-				yearIter++;
-			}
-		
-			this.createDateInfo(monthIter, dayIter, yearIter, dayWeekIter, counter);
-		}
+		this.fillForward(-1, 5, dayInt, monthInt, yearInt, dayOfWeek, daysInMonth);
 
 		this.fetchTodos();
 	}
@@ -186,29 +161,7 @@ export class AppComponent{
 		const dayOfWeek = startDate.getDay();
 
 		let counter = 5;
-		let dayIter = dayInt;
-		let monthIter = monthInt;
-		let yearIter = yearInt;
-		let dayWeekIter = dayOfWeek;
-		while (counter > 0){
-			counter--;
-			dayIter--;
-			dayWeekIter--;
-			
-			if (dayWeekIter < 0){
-				dayWeekIter = 6;
-			}
-			if (dayIter < 1){
-				dayIter = daysInLastMonth;
-				monthIter--;
-			}
-			if (monthIter < 0){
-				monthIter = 11;
-				yearIter--;
-			}
-		
-			this.createDateInfo(monthIter, dayIter, yearIter, dayWeekIter, counter);
-		}
+		this.fillBackward(counter, dayInt, monthInt, yearInt, dayOfWeek, daysInLastMonth);
 
 		this.fetchTodos();
 	}
