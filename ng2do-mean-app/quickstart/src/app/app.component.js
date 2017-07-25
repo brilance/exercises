@@ -37,6 +37,11 @@ var AppComponent = (function () {
         dateInfo.undoneItems = [];
         dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
         this.dateInfo[1] = dateInfo;
+        this.fillForward(todayDate, theMonth, theYear, dayOfWeek, daysInMonth);
+        this.fillBackward(todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth);
+        this.fetchTodos();
+    };
+    AppComponent.prototype.fillForward = function (todayDate, theMonth, theYear, dayOfWeek, daysInMonth) {
         //fill forward in the week
         var daysFwd = 4;
         var counter = 1;
@@ -59,20 +64,22 @@ var AppComponent = (function () {
                     yearIter++;
                 }
             }
-            var dateInfo_1 = new date_info_1.DateInfo();
-            dateInfo_1.linkText = (monthIter + 1) + '-' + dateIter + '-' + yearIter;
-            dateInfo_1.labelText = this.monthLookup[monthIter] + " " + dateIter;
-            dateInfo_1.doneItems = [];
-            dateInfo_1.undoneItems = [];
-            dateInfo_1.dayOfWeek = this.dayOfWeekLookup[dayIter];
-            this.dateInfo[counter] = dateInfo_1;
+            var dateInfo = new date_info_1.DateInfo();
+            dateInfo.linkText = (monthIter + 1) + '-' + dateIter + '-' + yearIter;
+            dateInfo.labelText = this.monthLookup[monthIter] + " " + dateIter;
+            dateInfo.doneItems = [];
+            dateInfo.undoneItems = [];
+            dateInfo.dayOfWeek = this.dayOfWeekLookup[dayIter];
+            this.dateInfo[counter] = dateInfo;
         }
+    };
+    AppComponent.prototype.fillBackward = function (todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth) {
         //fill backward in the week
         var daysBack = 1;
-        dateIter = todayDate;
-        monthIter = theMonth;
-        yearIter = theYear;
-        dayIter = dayOfWeek;
+        var dateIter = todayDate;
+        var monthIter = theMonth;
+        var yearIter = theYear;
+        var dayIter = dayOfWeek;
         while (daysBack > 0) {
             daysBack--;
             dateIter--;
@@ -88,16 +95,14 @@ var AppComponent = (function () {
                     yearIter--;
                 }
             }
-            var dateInfo_2 = new date_info_1.DateInfo();
-            dateInfo_2.linkText = (monthIter + 1) + '-' + dateIter + '-' + yearIter;
-            dateInfo_2.labelText = this.monthLookup[monthIter] + " " + dateIter;
-            dateInfo_2.doneItems = [];
-            dateInfo_2.undoneItems = [];
-            dateInfo_2.dayOfWeek = this.dayOfWeekLookup[dayIter];
-            this.dateInfo[daysBack] = dateInfo_2;
+            var dateInfo = new date_info_1.DateInfo();
+            dateInfo.linkText = (monthIter + 1) + '-' + dateIter + '-' + yearIter;
+            dateInfo.labelText = this.monthLookup[monthIter] + " " + dateIter;
+            dateInfo.doneItems = [];
+            dateInfo.undoneItems = [];
+            dateInfo.dayOfWeek = this.dayOfWeekLookup[dayIter];
+            this.dateInfo[daysBack] = dateInfo;
         }
-        console.log(this.dateInfo);
-        this.fetchTodos();
     };
     AppComponent.prototype.fetchTodos = function () {
         var _loop_1 = function (di) {
@@ -143,6 +148,83 @@ var AppComponent = (function () {
                 todoText.value = '';
             });
         }
+    };
+    AppComponent.prototype.goForward = function ($event) {
+        var _a = this.dateInfo[4].linkText.split("-"), month = _a[0], day = _a[1], year = _a[2];
+        var monthInt = parseInt(month, 10) - 1;
+        var dayInt = parseInt(day, 10);
+        var yearInt = parseInt(year, 10);
+        var startDate = new Date(yearInt, monthInt, dayInt);
+        var daysInMonth = new Date(yearInt, monthInt + 1, 0).getDate();
+        var dayOfWeek = startDate.getDay();
+        var counter = -1;
+        var dayIter = dayInt;
+        var monthIter = monthInt;
+        var yearIter = yearInt;
+        var dayWeekIter = dayOfWeek;
+        while (counter < 5) {
+            counter++;
+            dayIter++;
+            dayWeekIter++;
+            if (dayWeekIter > 6) {
+                dayWeekIter = 0;
+            }
+            if (dayIter > daysInMonth) {
+                dayIter = 1;
+                monthIter++;
+            }
+            if (monthIter > 11) {
+                monthIter = 0;
+                yearIter++;
+            }
+            var dateInfo = new date_info_1.DateInfo();
+            dateInfo.linkText = (monthIter + 1) + '-' + dayIter + '-' + yearIter;
+            dateInfo.labelText = this.monthLookup[monthIter] + " " + dayIter;
+            dateInfo.doneItems = [];
+            dateInfo.undoneItems = [];
+            dateInfo.dayOfWeek = this.dayOfWeekLookup[dayWeekIter];
+            this.dateInfo[counter] = dateInfo;
+        }
+        this.fetchTodos();
+    };
+    AppComponent.prototype.goBackward = function ($event) {
+        var _a = this.dateInfo[0].linkText.split("-"), month = _a[0], day = _a[1], year = _a[2];
+        var monthInt = parseInt(month, 10) - 1;
+        var dayInt = parseInt(day, 10);
+        var yearInt = parseInt(year, 10);
+        var startDate = new Date(yearInt, monthInt, dayInt);
+        var daysInLastMonth = new Date(yearInt, monthInt, 0).getDate();
+        var dayOfWeek = startDate.getDay();
+        var counter = 5;
+        var dayIter = dayInt;
+        var monthIter = monthInt;
+        var yearIter = yearInt;
+        var dayWeekIter = dayOfWeek;
+        while (counter > 0) {
+            counter--;
+            dayIter--;
+            dayWeekIter--;
+            if (dayWeekIter < 0) {
+                dayWeekIter = 6;
+            }
+            if (dayIter < 0) {
+                dayIter = daysInLastMonth;
+                monthIter--;
+            }
+            if (monthIter < 0) {
+                monthIter = 11;
+                yearIter--;
+            }
+            var dateInfo = new date_info_1.DateInfo();
+            dateInfo.linkText = (monthIter + 1) + '-' + dayIter + '-' + yearIter;
+            dateInfo.labelText = this.monthLookup[monthIter] + " " + dayIter;
+            dateInfo.doneItems = [];
+            dateInfo.undoneItems = [];
+            dateInfo.dayOfWeek = this.dayOfWeekLookup[dayWeekIter];
+            this.dateInfo[counter] = dateInfo;
+            console.log(this.dateInfo);
+        }
+        this.fetchTodos();
     };
     AppComponent = __decorate([
         core_1.Component({

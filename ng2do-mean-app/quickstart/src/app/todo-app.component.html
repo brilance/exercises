@@ -11,10 +11,10 @@
 			<input type="button" value="Add" (click)="addTodoBtn(todotext, dpInput)">
 		</div>
 	</div>
-	<button type="button" class="btn btn-default" id="btn-back">
+	<button type="button" class="btn btn-default" id="btn-back" (click)="goBackward($event)">
 		<span class="glyphicon glyphicon-menu-left"></span>
 	</button>
-	<button type="button" class="btn btn-default" id="btn-fwd">
+	<button type="button" class="btn btn-default" id="btn-fwd" (click)="goForward($event)">
 		<span class="glyphicon glyphicon-menu-right"></span>
 	</button>
 	<div id="outerContainer">

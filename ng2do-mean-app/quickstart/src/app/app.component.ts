@@ -39,6 +39,13 @@ export class AppComponent{
 		dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
 		this.dateInfo[1] = dateInfo;
 
+		this.fillForward(todayDate, theMonth, theYear, dayOfWeek, daysInMonth);
+		this.fillBackward(todayDate, theMonth, theYear, dayOfWeek, daysInLastMonth);
+		
+		this.fetchTodos();
+	}
+
+	fillForward(todayDate:number, theMonth:number, theYear:number, dayOfWeek:number, daysInMonth:number){
 		//fill forward in the week
 		let daysFwd = 4;
 		let counter = 1;
@@ -69,13 +76,15 @@ export class AppComponent{
 			dateInfo.dayOfWeek = this.dayOfWeekLookup[dayIter];
 			this.dateInfo[counter] = dateInfo;
 		}
+	}
 
+	fillBackward(todayDate:number, theMonth:number, theYear:number, dayOfWeek:number, daysInLastMonth:number){
 		//fill backward in the week
 		let daysBack = 1;
-		dateIter = todayDate;
-		monthIter = theMonth;
-		yearIter = theYear;
-		dayIter = dayOfWeek;
+		let dateIter = todayDate;
+		let monthIter = theMonth;
+		let yearIter = theYear;
+		let dayIter = dayOfWeek;
 		while (daysBack > 0){
 			daysBack--;
 			dateIter--;
@@ -99,8 +108,6 @@ export class AppComponent{
 			dateInfo.dayOfWeek = this.dayOfWeekLookup[dayIter];
 			this.dateInfo[daysBack] = dateInfo;
 		}
-		console.log(this.dateInfo);
-		this.fetchTodos();
 	}
 
 	fetchTodos(){
@@ -145,5 +152,92 @@ export class AppComponent{
 				todoText.value = '';
 			});
 		}
+	}
+
+	goForward($event:any){
+		let [month,day,year] = this.dateInfo[4].linkText.split("-");
+		const monthInt = parseInt(month, 10)-1;
+		const dayInt = parseInt(day, 10);
+		const yearInt = parseInt(year, 10);		
+		const startDate = new Date(yearInt, monthInt, dayInt);
+		const daysInMonth = new Date(yearInt, monthInt+1, 0).getDate();
+		const dayOfWeek = startDate.getDay();
+
+		let counter = -1;
+		let dayIter = dayInt;
+		let monthIter = monthInt;
+		let yearIter = yearInt;
+		let dayWeekIter = dayOfWeek;
+		while (counter < 5){
+			counter++;
+			dayIter++;
+			dayWeekIter++;
+			
+			if (dayWeekIter > 6){
+				dayWeekIter = 0;
+			}
+			if (dayIter > daysInMonth){
+				dayIter = 1;
+				monthIter++;
+			}
+			if (monthIter > 11){
+				monthIter = 0;
+				yearIter++;
+			}
+		
+			const dateInfo = new DateInfo();
+			dateInfo.linkText = (monthIter+1) + '-' + dayIter + '-' + yearIter;
+			dateInfo.labelText = this.monthLookup[monthIter]+" "+dayIter;
+			dateInfo.doneItems = [];
+			dateInfo.undoneItems = [];
+			dateInfo.dayOfWeek = this.dayOfWeekLookup[dayWeekIter];
+			this.dateInfo[counter] = dateInfo;
+		}
+
+		this.fetchTodos();
+	}
+
+	goBackward($event:any){
+		let [month,day,year] = this.dateInfo[0].linkText.split("-");
+		const monthInt = parseInt(month, 10)-1;
+		const dayInt = parseInt(day, 10);
+		const yearInt = parseInt(year, 10);		
+		const startDate = new Date(yearInt, monthInt, dayInt);
+		const daysInLastMonth = new Date(yearInt, monthInt, 0).getDate();
+		const dayOfWeek = startDate.getDay();
+
+		let counter = 5;
+		let dayIter = dayInt;
+		let monthIter = monthInt;
+		let yearIter = yearInt;
+		let dayWeekIter = dayOfWeek;
+		while (counter > 0){
+			counter--;
+			dayIter--;
+			dayWeekIter--;
+			
+			if (dayWeekIter < 0){
+				dayWeekIter = 6;
+			}
+			if (dayIter < 0){
+				dayIter = daysInLastMonth;
+				monthIter--;
+			}
+			if (monthIter < 0){
+				monthIter = 11;
+				yearIter--;
+			}
+		
+			const dateInfo = new DateInfo();
+			dateInfo.linkText = (monthIter+1) + '-' + dayIter + '-' + yearIter;
+			dateInfo.labelText = this.monthLookup[monthIter]+" "+dayIter;
+			dateInfo.doneItems = [];
+			dateInfo.undoneItems = [];
+			dateInfo.dayOfWeek = this.dayOfWeekLookup[dayWeekIter];
+			this.dateInfo[counter] = dateInfo;
+			console.log(this.dateInfo);
+		}
+
+		this.fetchTodos();
 	}
 }
