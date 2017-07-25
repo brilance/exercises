@@ -207,7 +207,7 @@ var AppComponent = (function () {
             if (dayWeekIter < 0) {
                 dayWeekIter = 6;
             }
-            if (dayIter < 0) {
+            if (dayIter < 1) {
                 dayIter = daysInLastMonth;
                 monthIter--;
             }
