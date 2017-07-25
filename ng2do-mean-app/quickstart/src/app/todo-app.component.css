@@ -19,7 +19,7 @@
 .col{
 	flex-grow:1;
 	border:1px solid #ccc;
-	min-width:100px;
+	min-width:160px;
 }
 
 .date, .day{

@@ -38,7 +38,7 @@ var AppComponent = (function () {
         dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
         this.dateInfo[1] = dateInfo;
         //fill forward in the week
-        var daysFwd = 5;
+        var daysFwd = 4;
         var counter = 1;
         var dateIter = todayDate;
         var monthIter = theMonth;

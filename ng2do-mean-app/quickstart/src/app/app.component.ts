@@ -40,7 +40,7 @@ export class AppComponent{
 		this.dateInfo[1] = dateInfo;
 
 		//fill forward in the week
-		let daysFwd = 5;
+		let daysFwd = 4;
 		let counter = 1;
 		let dateIter = todayDate;
 		let monthIter = theMonth;
