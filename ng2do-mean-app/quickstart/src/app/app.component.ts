@@ -17,6 +17,7 @@ export class AppComponent{
 
 	constructor(private todoFactory:TodoFactory){
 		this.dateInfo = [];
+
 		this.getDailyItems();
 	}
 
@@ -114,13 +115,13 @@ export class AppComponent{
 	}
 
 	addTodo(todoText:any, picker:any){
-		const _todo:Todo = {
-			text : todoText.value,
-			isCompleted : false,
-			date : null
-		};
-
-		if (picker.value != ''){
+		if (picker.value != '' && todoText.value != ''){
+			const _todo:Todo = {
+				text : todoText.value,
+				isCompleted : false,
+				date : null
+			};
+		
 			const [month,day,year] = picker.value.split("/");
 			const dateObj = new Date(year, month-1, day);
 			_todo.date = month+"-"+day+"-"+year;
@@ -174,5 +175,9 @@ export class AppComponent{
 		dateInfo.undoneItems = [];
 		dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
 		this.dateInfo[counter] = dateInfo;
+	}
+
+	addToDay($event:any){
+		console.log($event);
 	}
 }

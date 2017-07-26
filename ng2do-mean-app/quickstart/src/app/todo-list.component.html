@@ -2,7 +2,7 @@
     <span class="alert alert-info no-todos">No Todos today.</span>
 </div>
 <div id="{{'undoneItems'+day}}">
-    <div *ngFor="let todo of undoneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event)>
+    <div *ngFor="let todo of undoneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event) dnd-draggable [dragEnabled]="true" [dragData]="todo">
         <div class="col1">
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
         </div>
@@ -19,7 +19,7 @@
     </div>
 </div>
 <div id="{{'doneItems'+day}}">
-    <div *ngFor="let todo of doneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event)>
+    <div *ngFor="let todo of doneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event) dnd-draggable [dragEnabled]="true" [dragData]="todo">
         <div class="col1">
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
         </div>

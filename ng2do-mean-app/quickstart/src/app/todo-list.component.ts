@@ -108,4 +108,8 @@ export class TodoListComponent{
 	hideButtons($event:any){
 		$event.currentTarget.querySelector(".col3").classList.add("invisible");
 	}
+
+	addToDay($event:any){
+		//TODO - pass to parent day somehow
+	}
 }

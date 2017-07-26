@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var ng2_dnd_1 = require("ng2-dnd");
 var animations_1 = require("@angular/platform-browser/animations");
 var material_1 = require("@angular/material");
 var http_1 = require("@angular/common/http");
@@ -19,7 +20,7 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, http_1.HttpClientModule, animations_1.BrowserAnimationsModule, material_1.MdNativeDateModule, material_1.MdDatepickerModule, material_1.MdInputModule],
+            imports: [platform_browser_1.BrowserModule, ng2_dnd_1.DndModule.forRoot(), http_1.HttpClientModule, animations_1.BrowserAnimationsModule, material_1.MdNativeDateModule, material_1.MdDatepickerModule, material_1.MdInputModule],
             declarations: [app_component_1.AppComponent, todo_list_component_1.TodoListComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [todos_factory_1.TodoFactory]

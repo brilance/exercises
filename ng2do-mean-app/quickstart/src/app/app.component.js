@@ -107,20 +107,20 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.addTodo = function (todoText, picker) {
         var _this = this;
-        var _todo = {
-            text: todoText.value,
-            isCompleted: false,
-            date: null
-        };
-        if (picker.value != '') {
+        if (picker.value != '' && todoText.value != '') {
+            var _todo_1 = {
+                text: todoText.value,
+                isCompleted: false,
+                date: null
+            };
             var _a = picker.value.split("/"), month = _a[0], day = _a[1], year = _a[2];
             var dateObj = new Date(year, month - 1, day);
-            _todo.date = month + "-" + day + "-" + year;
-            this.todoFactory.save(_todo).subscribe(function (data) {
+            _todo_1.date = month + "-" + day + "-" + year;
+            this.todoFactory.save(_todo_1).subscribe(function (data) {
                 //this.dateInfo[dateObj.getDay()].undoneItems.push(data);
                 for (var _i = 0, _a = _this.dateInfo; _i < _a.length; _i++) {
                     var di = _a[_i];
-                    if (di.linkText == _todo.date) {
+                    if (di.linkText == _todo_1.date) {
                         di.undoneItems.push(data);
                     }
                 }
@@ -159,6 +159,9 @@ var AppComponent = (function () {
         dateInfo.undoneItems = [];
         dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
         this.dateInfo[counter] = dateInfo;
+    };
+    AppComponent.prototype.addToDay = function ($event) {
+        console.log($event);
     };
     AppComponent = __decorate([
         core_1.Component({

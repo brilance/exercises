@@ -39,11 +39,12 @@
     "@angular/router": "^4.3.1",
     "angular-in-memory-web-api": "~0.3.0",
     "core-js": "^2.4.1",
+    "ng2-dnd": "^4.2.0",
     "rxjs": "^5.4.2",
     "systemjs": "0.19.40",
+    "tslib": "^1.6.1",
     "typescript": "^2.4.2",
-    "zone.js": "^0.8.4",
-    "tslib":"^1.6.1"
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "concurrently": "^3.2.0",

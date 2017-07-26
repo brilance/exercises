@@ -92,6 +92,9 @@ var TodoListComponent = (function () {
     TodoListComponent.prototype.hideButtons = function ($event) {
         $event.currentTarget.querySelector(".col3").classList.add("invisible");
     };
+    TodoListComponent.prototype.addToDay = function ($event) {
+        //TODO - pass to parent day somehow
+    };
     __decorate([
         core_1.Input(),
         __metadata("design:type", Array)
