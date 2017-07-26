@@ -160,8 +160,39 @@ var AppComponent = (function () {
         dateInfo.dayOfWeek = this.dayOfWeekLookup[dayOfWeek];
         this.dateInfo[counter] = dateInfo;
     };
-    AppComponent.prototype.addToDay = function ($event) {
-        console.log($event);
+    AppComponent.prototype.addToDay = function ($event, day) {
+        var _this = this;
+        var todo = $event.dragData;
+        //remove from the old date
+        var oldDate = todo.date;
+        for (var _i = 0, _a = this.dateInfo; _i < _a.length; _i++) {
+            var di = _a[_i];
+            if (di.linkText == oldDate) {
+                var theArray = void 0;
+                if (todo.isCompleted) {
+                    theArray = di.doneItems;
+                }
+                else {
+                    theArray = di.undoneItems;
+                }
+                for (var i = 0; i < theArray.length; i++) {
+                    if (theArray[i]._id == todo._id) {
+                        theArray.splice(i, 1);
+                    }
+                }
+            }
+        }
+        //assign to the new date
+        var whichDay = this.dateInfo[day];
+        todo.date = whichDay.linkText;
+        this.todoFactory.update(todo).subscribe(function (data) {
+            if (todo.isCompleted) {
+                _this.dateInfo[day].doneItems.push(todo);
+            }
+            else {
+                _this.dateInfo[day].undoneItems.push(todo);
+            }
+        });
     };
     AppComponent = __decorate([
         core_1.Component({

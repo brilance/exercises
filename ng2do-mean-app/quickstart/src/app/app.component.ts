@@ -177,7 +177,40 @@ export class AppComponent{
 		this.dateInfo[counter] = dateInfo;
 	}
 
-	addToDay($event:any){
-		console.log($event);
+	addToDay($event:any, day:number){
+		const todo = $event.dragData;
+
+		//remove from the old date
+		const oldDate = todo.date;
+		for (let di of this.dateInfo){
+			if (di.linkText == oldDate){
+				let theArray;
+				if (todo.isCompleted){
+					theArray = di.doneItems;
+				}
+				else{
+					theArray = di.undoneItems;
+				}
+
+				for (let i = 0; i < theArray.length; i++){
+					if (theArray[i]._id == todo._id){
+						theArray.splice(i, 1);
+					}
+				}
+			}
+		}
+
+		//assign to the new date
+		const whichDay = this.dateInfo[day];
+		todo.date = whichDay.linkText;
+
+		this.todoFactory.update(todo).subscribe( (data:any) => {
+			if (todo.isCompleted){
+				this.dateInfo[day].doneItems.push(todo);
+			}
+			else{
+				this.dateInfo[day].undoneItems.push(todo);
+			}
+		});
 	}
 }

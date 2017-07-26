@@ -19,7 +19,7 @@
 	</button>
 	<div id="outerContainer">
 		<div class="col" [ngClass]="{'today':todayDate==dateInfo[0].labelText}">
-			<div dnd-droppable (onDropSuccess)="addToDay($event)">
+			<div dnd-droppable (onDropSuccess)="addToDay($event, 0)">
 				<div class="day">{{dateInfo[0].dayOfWeek}}</div>
 				<div class="date">{{dateInfo[0].labelText}}</div>
 			</div>
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 		<div class="col" [ngClass]="{'today':todayDate==dateInfo[1].labelText}">
-			<div dnd-droppable (onDropSuccess)="addToDay($event)">	
+			<div dnd-droppable (onDropSuccess)="addToDay($event, 1)">	
 				<div class="day">{{dateInfo[1].dayOfWeek}}</div>
 				<div class="date">{{dateInfo[1].labelText}}</div>
 			</div>
@@ -37,7 +37,7 @@
 			</div>
 		</div>
 		<div class="col" [ngClass]="{'today':todayDate==dateInfo[2].labelText}">
-			<div dnd-droppable (onDropSuccess)="addToDay($event)">
+			<div dnd-droppable (onDropSuccess)="addToDay($event, 2)">
 				<div class="day">{{dateInfo[2].dayOfWeek}}</div>
 				<div class="date">{{dateInfo[2].labelText}}</div>
 			</div>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<div class="col" [ngClass]="{'today':todayDate==dateInfo[3].labelText}">
-			<div dnd-droppable (onDropSuccess)="addToDay($event)">
+			<div dnd-droppable (onDropSuccess)="addToDay($event, 3)">
 				<div class="day">{{dateInfo[3].dayOfWeek}}</div>
 				<div class="date">{{dateInfo[3].labelText}}</div>
 			</div>
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 		<div class="col" [ngClass]="{'today':todayDate==dateInfo[4].labelText}">
-			<div dnd-droppable (onDropSuccess)="addToDay($event)">
+			<div dnd-droppable (onDropSuccess)="addToDay($event, 4)">
 				<div class="day">{{dateInfo[4].dayOfWeek}}</div>
 				<div class="date">{{dateInfo[4].labelText}}</div>
 			</div>
