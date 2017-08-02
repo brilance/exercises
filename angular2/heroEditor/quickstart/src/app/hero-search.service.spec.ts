@@ -1,12 +1,8 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, inject } from '@angular/core/testing';
-import { By }              from '@angular/platform-browser';
-import { DebugElement }    from '@angular/core';
-import { async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { HttpModule, XHRBackend, Http, Response, ResponseOptions, RequestMethod }       from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { HeroSearchService } from './hero-search.service';
-import { Hero }           from './hero';
 
 const heroes = {
     data : [
@@ -18,13 +14,11 @@ const heroes = {
 };
 
 beforeEach(() => {
-
     TestBed.configureTestingModule({
       imports: [HttpModule],
       providers: [HeroSearchService, { provide: XHRBackend, useClass: MockBackend }]
     });
-
-  });
+});
 
 describe('HeroSearchService', () => {
     describe('search', () => {
