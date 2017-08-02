@@ -18,6 +18,7 @@ require("rxjs/add/observable/of");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/debounceTime");
 require("rxjs/add/operator/distinctUntilChanged");
+require("rxjs/add/operator/switchMap");
 var hero_search_service_1 = require("./hero-search.service");
 var HeroSearchComponent = (function () {
     function HeroSearchComponent(heroSearchService, router) {
@@ -31,7 +32,7 @@ var HeroSearchComponent = (function () {
     };
     HeroSearchComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.heroes = this.searchTerms
+        this.heroes = this.searchTerms.asObservable()
             .debounceTime(300) // wait 300ms after each keystroke before considering the term
             .distinctUntilChanged() // ignore if next search term is same as previous
             .switchMap(function (term) { return term // switch to new observable each time the term changes
@@ -53,8 +54,7 @@ HeroSearchComponent = __decorate([
     core_1.Component({
         selector: 'hero-search',
         templateUrl: './hero-search.component.html',
-        styleUrls: ['./hero-search.component.css'],
-        providers: [hero_search_service_1.HeroSearchService]
+        styleUrls: ['./hero-search.component.css']
     }),
     __metadata("design:paramtypes", [hero_search_service_1.HeroSearchService,
         router_1.Router])

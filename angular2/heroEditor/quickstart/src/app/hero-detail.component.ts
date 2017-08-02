@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location }                 from '@angular/common';
+import { NgModel } from '@angular/forms';
 import 'rxjs/add/operator/switchMap';
 
 import { Hero } from './hero';
@@ -23,8 +24,8 @@ export class HeroDetailComponent implements OnInit{
 
   	ngOnInit(): void {
 	  this.route.paramMap
-	    .switchMap((params: ParamMap) => this.heroService.getHero(+params.get('id')))
-	    .subscribe(hero => this.hero = hero);
+		.switchMap((params: ParamMap) => this.heroService.getHero(+params.get('id')))
+		.subscribe(hero => this.hero = hero);
 	};
 
 	goBack(): void {
@@ -32,6 +33,7 @@ export class HeroDetailComponent implements OnInit{
 	};
 
 	save(): void {
+		console.log(this.hero);
 		this.heroService.update(this.hero)
 			.then(() => this.goBack());
 	}

@@ -46,7 +46,7 @@ var HeroesComponent = (function () {
         this.heroService
             .delete(hero.id)
             .then(function () {
-            _this.heroes = _this.heroes.filter(function (h) { return h !== hero; });
+            _this.heroes = _this.heroes.filter(function (h) { return h.id !== hero.id; });
             if (_this.selectedHero === hero) {
                 _this.selectedHero = null;
             }
@@ -58,8 +58,7 @@ HeroesComponent = __decorate([
     core_1.Component({
         selector: 'my-heroes',
         templateUrl: './heroes.component.html',
-        styleUrls: ['./heroes.component.css'],
-        providers: [hero_service_1.HeroService]
+        styleUrls: ['./heroes.component.css']
     }),
     __metadata("design:paramtypes", [router_1.Router,
         hero_service_1.HeroService])

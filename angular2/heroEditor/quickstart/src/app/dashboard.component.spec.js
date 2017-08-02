@@ -6,9 +6,19 @@ var testing_3 = require("@angular/router/testing");
 var core_1 = require("@angular/core");
 var hero_service_1 = require("./hero.service");
 var dashboard_component_1 = require("./dashboard.component");
+var hero_1 = require("./hero");
 var heroServiceStub = {
     getHeroes: function () {
-        var heroArray = [{ id: 1, name: "Hero Bob" }, { id: 2, name: "Hero Jill" }];
+        var h1 = new hero_1.Hero();
+        h1.id = 1;
+        h1.name = "Hero Bob";
+        var h2 = new hero_1.Hero();
+        h2.id = 2;
+        h2.name = "Hero Jill";
+        var h3 = new hero_1.Hero();
+        h3.id = 3;
+        h3.name = "Hero Jamie";
+        var heroArray = [h1, h2, h3];
         return Promise.resolve(heroArray);
     }
 };
@@ -40,10 +50,18 @@ describe('DashboardComponent', function () {
         fixture.detectChanges();
         expect(el.textContent).toContain('Top Heroes');
     });
-    it('should display two heroes', function () {
-        var elems = fixture.debugElement.queryAll(platform_browser_1.By.css('.grid'));
+    it('this.heroes length equals 2', testing_1.fakeAsync(function () {
         fixture.detectChanges();
-        expect(elems.length).toEqual(2);
-    });
+        testing_1.tick(); // wait for promise to resolve
+        fixture.detectChanges();
+        expect(comp.heroes.length).toEqual(2);
+    }));
+    it('should display 2 heroes', testing_1.fakeAsync(function () {
+        fixture.detectChanges();
+        testing_1.tick(); // wait for promise to resolve
+        fixture.detectChanges();
+        var de = fixture.debugElement.queryAll(platform_browser_1.By.css('.hero'));
+        expect(de.length).toEqual(2);
+    }));
 });
 //# sourceMappingURL=dashboard.component.spec.js.map

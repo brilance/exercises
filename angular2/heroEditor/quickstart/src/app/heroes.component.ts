@@ -7,8 +7,7 @@ import { HeroService } from './hero.service';
 @Component({
   selector: 'my-heroes',
   templateUrl:'./heroes.component.html',
-  styleUrls: ['./heroes.component.css'],
-  providers: [HeroService]
+  styleUrls: ['./heroes.component.css']
 })
 
 export class HeroesComponent implements OnInit {
@@ -46,10 +45,10 @@ export class HeroesComponent implements OnInit {
   }
 
   delete(hero: Hero): void {
-      this.heroService
+       this.heroService
         .delete(hero.id)
         .then(() => {
-          this.heroes = this.heroes.filter(h => h !== hero);
+          this.heroes = this.heroes.filter(h => h.id !== hero.id);
           if (this.selectedHero === hero) { this.selectedHero = null; }
         });
   }
