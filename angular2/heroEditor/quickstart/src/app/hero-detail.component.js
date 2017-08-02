@@ -33,7 +33,6 @@ var HeroDetailComponent = (function () {
     ;
     HeroDetailComponent.prototype.save = function () {
         var _this = this;
-        console.log(this.hero);
         this.heroService.update(this.hero)
             .then(function () { return _this.goBack(); });
     };

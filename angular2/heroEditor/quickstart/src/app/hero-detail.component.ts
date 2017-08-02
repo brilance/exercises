@@ -33,7 +33,6 @@ export class HeroDetailComponent implements OnInit{
 	};
 
 	save(): void {
-		console.log(this.hero);
 		this.heroService.update(this.hero)
 			.then(() => this.goBack());
 	}
