@@ -50,7 +50,7 @@
       },
       'tslib': {
             defaultExtension: 'js'
-        }
+      }
     }
   });
 })(this);
