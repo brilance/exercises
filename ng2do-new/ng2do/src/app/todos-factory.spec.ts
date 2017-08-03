@@ -1,13 +1,13 @@
 //TODO - problem with configuration and importing
 import { ComponentFixture, TestBed, inject, fakeAsync } from '@angular/core/testing';
-import { HttpClient, HttpHandler, HttpXhrBackend } from '@angular/common/http';
-import { HttpModule, XHRBackend, Http, Response, ResponseOptions, RequestMethod } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
+import { HttpClient} from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { TodoFactory } from './todos-factory';
 import { Todo } from './todo';
 
 const todoList = {
+    data:[]
     //TODO - fill in data
 };
 
@@ -32,26 +32,24 @@ describe("it should run a test", () => {
 describe('TodoFactory', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-        imports: [ HttpModule ],
-        providers: [TodoFactory, { provide: HttpXhrBackend, useClass: MockBackend }, HttpClient, HttpHandler]
+        imports: [ HttpClientTestingModule ],
+        providers: [TodoFactory]
         });
     });
 
     describe('getAll', () => {
         it('should call http get and return a list of results', 
-        fakeAsync(inject([TodoFactory, HttpXhrBackend], (TodoFactory:TodoFactory, mockBackend:MockBackend) => {
-           
-            mockBackend.connections.subscribe((connection:MockConnection) => {
-                expect(connection.request.method).toEqual(RequestMethod.Get);
-                expect(connection.request.url).toEqual('/api/v1/todos');
-                connection.mockRespond(new Response(new ResponseOptions({
-                    body: JSON.stringify(todoList)
-                })));
-            });
+        fakeAsync(inject([TodoFactory, HttpClient, HttpTestingController], (TodoFactory:TodoFactory, http: HttpClient, httpMock:HttpTestingController) => {
 
             TodoFactory.getAll().subscribe((results)=>{
                 //TODO - test that results are as expected
+                console.log(results);
             });
+
+            const req = httpMock.expectOne('http://localhost:3000/api/v1/todos');
+            expect(req.request.method).toEqual('GET');
+            req.flush({name: 'Test Data'});
+            httpMock.verify();
         })))
     });
 
