@@ -1,0 +1,51 @@
+*{
+	box-sizing: border-box; 
+}
+
+.container{
+	max-width:220px;
+	padding:10px;
+}
+
+@media (max-width:480px){
+	.container{
+		display:flex;
+		flex-flow:row wrap;
+		margin:10px 0px;
+		max-width:480px;
+		padding:10px;
+		justify-content:space-between;
+	}
+}
+
+.col1{
+	display:inline-block;
+	width:15px;
+}
+
+.col2{
+	display:inline-block;
+}
+
+.col3{
+	
+}
+
+.strike{
+	text-decoration:line-through;
+}
+
+.no-todos{
+	position: relative;
+    top: 25px;
+	left: 10px;
+	white-space: nowrap;
+}
+
+@media (max-width:480px){
+	.no-todos{
+		width: 94%;
+		display: inline-block;
+		top: 10px;
+	}
+}
