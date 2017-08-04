@@ -65,12 +65,18 @@ export class TodoListComponent{
 		const day = dateObj.getDay();
 
 		if (!todo.isCompleted){
-			document.querySelector("#doneItems"+day).appendChild(item);
+			const query = document.querySelector("#doneItems"+day);
+			if (query){
+				query.appendChild(item);
+			}
 			this.doneItems.push(todo);
 			this.undoneItems.splice(this.undoneItems.findIndex((item:Todo) => item._id == todo._id), 1);
 		}
 		else{
-			document.querySelector("#undoneItems"+day).appendChild(item);
+			const query = document.querySelector("#undoneItems"+day);
+			if (query){
+				query.appendChild(item);
+			}
 			this.undoneItems.push(todo);
 			this.doneItems.splice(this.doneItems.findIndex((item:Todo) => item._id == todo._id), 1);
 		}
@@ -81,20 +87,20 @@ export class TodoListComponent{
     }
     
 	deleteTodo(todo:Todo){
-		const [month,date,year] = todo.date.split("-");
-		const dateObj = new Date(parseInt(year,10),parseInt(month,10)-1,parseInt(date,10));
-		const day = dateObj.getDay();
-
 		this.todoFactory.delete(todo._id).subscribe((data:any)=>{
 			if (data.n == 1){
-				for (let i = 0; i < this.undoneItems.length; i++){
-					if (this.undoneItems[i]._id == todo._id){
-						this.undoneItems.splice(i, 1);
+				if (todo.isCompleted){
+					for (let i = 0; i < this.doneItems.length; i++){
+						if (this.doneItems[i]._id == todo._id){
+							this.doneItems.splice(i, 1);
+						}
 					}
 				}
-				for (let i = 0; i < this.doneItems.length; i++){
-					if (this.doneItems[i]._id == todo._id){
-						this.doneItems.splice(i, 1);
+				else{
+					for (let i = 0; i < this.undoneItems.length; i++){
+						if (this.undoneItems[i]._id == todo._id){
+							this.undoneItems.splice(i, 1);
+						}
 					}
 				}
 			}

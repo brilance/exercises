@@ -24,16 +24,6 @@ newTodo.text = "This is a new todo item";
 newTodo.isCompleted = false;
 newTodo.date = "8-4-2017";
 
-const deleteResult = {
-    //TODO - fill in data
-}
-
-describe("it should run a test", () => {
-    it("should run this test", () => {
-        expect(true).toBe(true);
-    });
-});
-
 describe('TodoFactory', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
