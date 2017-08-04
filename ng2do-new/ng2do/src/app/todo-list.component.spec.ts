@@ -6,7 +6,6 @@ import { TodoFactory } from './todos-factory';
 import { TodoListComponent } from './todo-list.component';
 import { Todo } from './todo';
 import { Observable } from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
 
 const TodoFactoryStub={

@@ -147,7 +147,7 @@ export class AppComponent{
 		const daysInMonth = new Date(yearInt, monthInt+1, 0).getDate();
 		const dayOfWeek = startDate.getDay();
 
-		this.fillForward(-1, 5, dayInt, monthInt, yearInt, dayOfWeek, daysInMonth);
+		this.fillForward(-1, 4, dayInt, monthInt, yearInt, dayOfWeek, daysInMonth);
 
 		this.fetchTodos();
 	}
