@@ -1,8 +1,8 @@
-<div [hidden]="undoneItems.length > 0 || doneItems.length > 0">
+<div [hidden]="undoneItems.length > 0 || doneItems.length > 0" dnd-sortable-container [sortableData]="undoneItems" [dropZones]="['undone-zone']" (onDropSuccess)="emitDrop($event, day)">
     <span class="alert alert-info no-todos">No Todos today.</span>
 </div>
-<div id="{{'undoneItems'+day}}">
-    <div *ngFor="let todo of undoneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event) dnd-draggable [dragEnabled]="true" [dragData]="todo">
+<div id="{{'undoneItems'+day}}" dnd-sortable-container [sortableData]="undoneItems" [dropZones]="['undone-zone']">
+    <div *ngFor="let todo of undoneItems; let i = index" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event) dnd-sortable [sortableIndex]="i" [dragData]="todo" (onDropSuccess)="emitDrop($event, day)">
         <div class="col1">
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
         </div>
@@ -18,8 +18,8 @@
         </div>
     </div>
 </div>
-<div id="{{'doneItems'+day}}">
-    <div *ngFor="let todo of doneItems" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event) dnd-draggable [dragEnabled]="true" [dragData]="todo">
+<div id="{{'doneItems'+day}}" dnd-sortable-container [sortableData]="doneItems" [dropZones]="['undone-zone']">
+    <div *ngFor="let todo of doneItems; let i = index" class="container" #item (mouseover)=showButtons($event) (mouseout)=hideButtons($event) dnd-sortable [sortableIndex]="i" [dragData]="todo" (onDropSuccess)="emitDrop($event, day)">
         <div class="col1">
             <input type="checkbox" [checked]="todo.isCompleted" (click)="updateStatus(todo, item)">
         </div>

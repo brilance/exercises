@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input,Output, EventEmitter } from '@angular/core';
 import { Todo } from './todo';
 import { TodoFactory } from './todos-factory';
 
@@ -16,7 +16,10 @@ export class TodoListComponent{
     undoneItems:Array<Todo>;
 
     @Input()
-    day:number;
+	day:number;
+	
+	@Output()
+    drop:EventEmitter<object> = new EventEmitter();
 
     constructor(private todoFactory:TodoFactory){
     }
@@ -113,5 +116,13 @@ export class TodoListComponent{
 
 	hideButtons($event:any){
 		$event.currentTarget.querySelector(".col3").classList.add("invisible");
+	}
+
+	emitDrop($event:any, day:number){
+		const params = {
+			day:day,
+			todo:$event
+		};
+		this.drop.emit(params);
 	}
 }
