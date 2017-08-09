@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongojs = require('mongojs');
-const db = mongojs('mongodb://localhost:27017/ng2todoapp', ['todos']);
+const db = mongojs(process.env.MONGODB_URI || 'mongodb://localhost:27017/ng2todoapp', ['todos']);
 
 //GET all todos
 router.get('/todos', function(req, res, next){
