@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core'
 
 @Injectable()
 export class TodoFactory{
-	private urlBase = "http://localhost:3000";
-
+	//private urlBase = "http://localhost:3000";
+	private urlBase = "https://young-sands-95433.herokuapp.com";
+	
 	constructor(private http: HttpClient) {}
 
 	getAll(){

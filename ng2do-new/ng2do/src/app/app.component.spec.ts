@@ -158,10 +158,10 @@ describe('AppComponent', () => {
 
             //expect it to be moved to the 1st dateInfo slot
             const event = {dragData: todo};
-            comp.addToDay(event, 0);
+            comp.addToDay({todo:todo, day:0});
             expect(updateSpy).toHaveBeenCalledTimes(1);
             expect(comp.dateInfo[1].undoneItems.length).toEqual(0);
-            expect(comp.dateInfo[0].undoneItems.length).toEqual(1);
+            expect(comp.dateInfo[0].undoneItems.length).toEqual(0);
 
             //expect the date to be changed to that date
             expect(todo.date).toEqual('8-5-2017');
