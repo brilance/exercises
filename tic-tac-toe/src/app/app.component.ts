@@ -18,10 +18,20 @@ export class AppComponent {
   whoseTurn = null;
 
   ngOnInit(): void {
+    this.randomize();
+    this.placeO();
+  }
+
+  randomize():void{
     this.availablePlaces.sort((a,b) => {
       return 0.5-Math.random();
     });
-    this.placeO();
+    this.availablePlaces.sort((a,b) => {
+      return 0.5-Math.random();
+    });
+    this.availablePlaces.sort((a,b) => {
+      return 0.5-Math.random();
+    });
   }
 
   placeX(position):void{
