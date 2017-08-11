@@ -1,0 +1,33 @@
+body{
+    padding:15px;
+    font-size:150%;
+}
+
+#resume header{
+    text-align:center;
+    font-size:110%;
+}
+
+
+#resume h1{
+    font-size:300%;
+}
+
+#resume h2{
+    width:100%;
+    border-bottom:1px solid #666;
+}
+
+#resume h3{
+    margin-top:10px;
+}
+
+#resume h4{
+    padding:0px 15px;
+    margin-top:0px;
+}
+
+#resume p{
+    margin-bottom:60px;
+    padding:0px 15px;
+}
