@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.artists = this.searchTerms.asObservable()
-    .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+    .debounceTime(800)        // wait 300ms after each keystroke before considering the term
     .distinctUntilChanged()   // ignore if next search term is same as previous
     .switchMap( term => term   // switch to new observable each time the term changes
       // return the http search observable
@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  search(value:string):void{
+  search(value:string):void{   
     this.searchTerms.next(value);
   }
 

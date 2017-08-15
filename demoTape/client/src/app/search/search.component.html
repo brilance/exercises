@@ -1,3 +1,8 @@
 <div id="search-component">
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div>
+    <div *ngFor="let artist of artists | async" class="search-result">
+        {{artist.name}}
+    </div>
+  </div>
 </div>

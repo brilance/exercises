@@ -40,15 +40,18 @@ describe('SearchComponent', () => {
 
   describe('search', () =>{
     it('should call SearchService.search and update the artists observable', fakeAsync(() => {
-      searchSpy.calls.reset();
+      
       component.artists.subscribe((artists)=>{
         expect(artists.length).toEqual(2);
         expect(artists[0]).toBe(madonna);
         expect(artists[1]).toBe(buffalo);
       });
+
+      searchSpy.calls.reset();
+      expect(searchSpy).toHaveBeenCalledTimes(0);
       component.search('madonna');
       tick(300);
-      expect(searchSpy).toHaveBeenCalledTimes(1);
+      expect(searchSpy).toHaveBeenCalledTimes(2);
     }));
   });
 });

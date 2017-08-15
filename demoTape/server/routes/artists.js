@@ -16,7 +16,7 @@ router.get('/artist', function(req, res, next){
                 json: true
             };
             request.get(options, function(error, response, body) {
-                console.log(body.artists.items);
+                res.json(body.artists.items);
             });
         }
     });
