@@ -1,0 +1,9 @@
+<div *ngIf="relatedArtists.length">
+    <h2>Related Artists</h2>
+    <div *ngFor="let artist of relatedArtists" class="relArtist">
+      <div>{{artist.name}}</div>
+      <div *ngIf="artist.images.length > 2">
+        <img [src]="artist.images[2].url | safe"/>
+      </div>
+    </div>
+</div>

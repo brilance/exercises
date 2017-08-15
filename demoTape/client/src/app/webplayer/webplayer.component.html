@@ -1,0 +1,4 @@
+<div *ngIf="iframeURI">
+  <h2>Play Top Tracks</h2>
+  <iframe [src]="iframeURI | safe" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+</div>

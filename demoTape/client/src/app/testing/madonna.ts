@@ -1,4 +1,4 @@
-import {Artist} from '../Artist';
+import {Artist} from '../models/artist';
 
 export const madonna = new Artist();
 madonna.id='6tbjWDEIzxoDsBA1FuhfPW';

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SearchService } from '../search.service';
 import { Observable }     from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
-import { Artist } from '../Artist';
+import { Artist } from '../models/Artist';
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -24,6 +24,9 @@ export class SearchComponent implements OnInit {
   artists:Observable<Artist[]>;
   private searchTerms = new Subject<string>();
 
+  @Output()
+  selection:EventEmitter<Artist> = new EventEmitter();
+
   constructor(private searchService:SearchService) { }
 
   ngOnInit() {
@@ -44,6 +47,11 @@ export class SearchComponent implements OnInit {
 
   search(value:string):void{   
     this.searchTerms.next(value);
+  }
+
+  selectArtist(artist:Artist){
+    this.search("");
+    this.selection.emit(artist);
   }
 
 }

@@ -1,0 +1,9 @@
+<div *ngIf="events.length">
+    <h2>Upcoming Events</h2>
+    <div *ngFor="let event of events" class="event">
+      <span>{{event.name}}</span>
+      <span>{{event.date | date:mediumDate}}</span>
+      <span>{{event.venue}}</span>
+      <span>{{event.city}}, {{event.state}} {{event.country}}</span>
+    </div>
+</div>

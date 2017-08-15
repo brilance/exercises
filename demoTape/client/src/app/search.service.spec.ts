@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClient} from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import {Artist} from './Artist';
+import {Artist} from './models/Artist';
 import { SearchService } from './search.service';
 
 import { madonna } from './testing/madonna';

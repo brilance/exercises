@@ -1,4 +1,4 @@
-import {Artist} from '../Artist';
+import {Artist} from '../models/artist';
 
 export const buffalo = new Artist();
 buffalo.id = '77d8Yuuv6nGCJSnZHcOpVe';

@@ -3,7 +3,7 @@ import { fakeAsync, tick, async, ComponentFixture, TestBed } from '@angular/core
 import { SearchComponent } from './search.component';
 import { SearchService } from "../search.service";
 import { Observable }     from 'rxjs/Observable';
-import {Artist} from '../Artist';
+import {Artist} from '../models/Artist';
 import { madonna } from '../testing/madonna';
 import { buffalo } from '../testing/buffalo';
 import 'rxjs/add/observable/of';
@@ -50,8 +50,17 @@ describe('SearchComponent', () => {
       searchSpy.calls.reset();
       expect(searchSpy).toHaveBeenCalledTimes(0);
       component.search('madonna');
-      tick(300);
+      tick(800);
       expect(searchSpy).toHaveBeenCalledTimes(2);
     }));
+  });
+
+  describe('selectArtist', () =>{
+    it('should emit an event with the selected artist', ()=>{
+      component.selection.subscribe((artist)=>{
+        expect(artist).toEqual(madonna);
+      });
+      component.selectArtist(madonna);
+    });
   });
 });

@@ -1,0 +1,6 @@
+<div *ngIf="albums.length">
+  <h2>Top Albums</h2>
+  <div *ngFor="let album of albums" class="albumImg">
+    <img [src]="album.images[2].url | safe"/>
+  </div>
+</div>

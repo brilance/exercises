@@ -1,2 +1,6 @@
-<h1>{{title}}</h1>
-<app-search></app-search>
+<h1>{{title}} <span *ngIf="artist">&mdash; {{artist.name}}</span></h1>
+<app-search (selection)='setArtist($event)'></app-search>
+<app-webplayer [iframeURI]='iframeURI'></app-webplayer>
+<app-albums [artist]='artist'></app-albums>
+<app-related-artists [artist]='artist'></app-related-artists>
+<app-events [artist]='artist'></app-events>

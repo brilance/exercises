@@ -22,6 +22,69 @@ router.get('/artist', function(req, res, next){
     });
 });
 
+router.get('/artist/:id/album', function(req, res, next){
+    getAuth().
+    then((token)=>{
+        const artistID = req.params.id;
+        const options = {
+            url: `https://api.spotify.com/v1/artists/${artistID}/albums?album_type=album&market=US`,
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            json: true
+        };
+        request.get(options, function(error, response, body) {
+            res.json(body.items);
+        });
+        
+    });
+});
+
+router.get('/artist/:id/related', function(req, res, next){
+    getAuth().
+    then((token)=>{
+        const artistID = req.params.id;
+        const options = {
+            url: `https://api.spotify.com/v1/artists/${artistID}/related-artists`,
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            json: true
+        };
+        request.get(options, function(error, response, body) {
+            res.json(body.artists);
+        });
+        
+    });
+});
+
+router.get('/artist/:id/event', function(req, res, next){
+    getAuth().
+    then((token)=>{
+        const artistID = req.params.id;
+        const options = {
+            url: `https://api.spotify.com/v1/artists/${artistID}`,
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            json: true
+        };
+        request.get(options, function(error, response, body) {
+            const name = body.name;
+            const options2 = {
+                url: `https://app.ticketmaster.com/discovery/v2/events.json?apikey=aIZpAimvsGpE5JMOyHqVe0tDAXOMplXT&keyword=${name}`,
+                json: true
+            };
+            request.get(options2, function(error, response, body) {
+                if (body._embedded){
+                    res.json(body._embedded.events);
+                }
+            });
+        });
+        
+    });
+});
+
 function getAuth(){
     if (token !== null){
         return Promise.resolve(token);

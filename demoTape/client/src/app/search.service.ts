@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable }     from 'rxjs/Observable';
-import {Artist} from './Artist';
+import {Artist} from './models/Artist';
 import 'rxjs/add/operator/map';
 
 @Injectable()
