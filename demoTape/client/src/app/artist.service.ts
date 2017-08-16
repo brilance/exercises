@@ -4,6 +4,7 @@ import { Observable }     from 'rxjs/Observable';
 import { Album } from './models/Album';
 import { Artist } from './models/Artist';
 import { ArtistEvent } from './models/Event';
+import { Bio } from './models/Bio';
 
 @Injectable()
 export class ArtistService {
@@ -44,6 +45,16 @@ export class ArtistService {
         events.push(event);
       }
       return events;
+    });
+  }
+
+  getBio(artist:Artist):Observable<Bio>{
+    return this.http.get(this.urlBase+`/api/v1/artist/${artist.id}/bio`)
+    .map(response => {
+      const bio = new Bio();
+      bio.content = response["content"];
+      bio.summary = response["summary"];
+      return bio;
     });
   }
 }

@@ -10,6 +10,7 @@ import { SafePipe } from './safe.pipe';
 import { AlbumsComponent } from './albums/albums.component';
 import { RelatedArtistsComponent } from './related-artists/related-artists.component';
 import { EventsComponent } from './events/events.component';
+import { BioComponent } from './bio/bio.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { EventsComponent } from './events/events.component';
     SafePipe,
     AlbumsComponent,
     RelatedArtistsComponent,
-    EventsComponent
+    EventsComponent,
+    BioComponent
   ],
   imports: [
     BrowserModule,

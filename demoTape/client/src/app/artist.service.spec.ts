@@ -4,11 +4,13 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { ArtistService } from './artist.service';
 import { ArtistEvent } from './models/Event';
+import { Bio } from './models/Bio';
 import { madonna } from './testing/madonna';
 import { buffalo } from './testing/buffalo';
 import { madonnaAlbum } from './testing/madonnaAlbum';
 import { madonnaEventRaw } from './testing/madonnaEventRaw';
 import { madonnaEvent } from './testing/madonnaEvent';
+import { madonnaBio } from './testing/madonnaBio';
 
 const resultsForMadonna = [madonnaAlbum];
 const relatedArtists = [buffalo];
@@ -69,6 +71,20 @@ describe('ArtistService', () => {
       const req = httpMock.expectOne('http://localhost:3000/api/v1/artist/6tbjWDEIzxoDsBA1FuhfPW/event');
       expect(req.request.method).toEqual('GET');
       req.flush(madonnaEventRaw);
+      httpMock.verify();
+    }));
+  });
+
+  describe('getBio', () =>{
+    it('should call http backend and return artist bio', inject([ArtistService, HttpClient, HttpTestingController], (service: ArtistService, http: HttpClient, httpMock:HttpTestingController) => {
+      service.getBio(madonna).subscribe((results)=>{
+        expect(results.summary).toBe(madonnaBio.summary);
+        expect(results.content).toBe(madonnaBio.content);
+      });
+
+      const req = httpMock.expectOne('http://localhost:3000/api/v1/artist/6tbjWDEIzxoDsBA1FuhfPW/bio');
+      expect(req.request.method).toEqual('GET');
+      req.flush(madonnaBio);
       httpMock.verify();
     }));
   });

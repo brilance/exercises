@@ -1,0 +1,13 @@
+<div *ngIf="bio">
+    <a name="bio"></a>
+    <h2>Bio</h2>
+    <p [hidden]="showFull">
+      {{bio.summary}}
+      <a href="#bio" (click)="showFullBio()">Read more</a>
+    </p>
+    <p [hidden]="!showFull">
+      {{bio.content}}
+      <a href="#bio" (click)="showSummaryBio()">Read less</a>
+    </p>
+    
+</div>

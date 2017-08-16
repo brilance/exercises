@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 let token = null;
 
-//GET all todos
 router.get('/artist', function(req, res, next){
     getAuth().
     then((token)=>{
@@ -19,6 +18,30 @@ router.get('/artist', function(req, res, next){
                 res.json(body.artists.items);
             });
         }
+    });
+});
+
+router.get('/artist/:id/bio', function(req, res, next){
+    getAuth().
+    then((token)=>{
+        const artistID = req.params.id;
+        const options = {
+            url: `https://api.spotify.com/v1/artists/${artistID}`,
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            json: true
+        };
+        request.get(options, function(error, response, body) {
+            const name = body.name;
+            const options2 = {
+                url: `http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${name}&api_key=b9821c4b408223ae2c1c89fcd8047790&format=json`,
+                json: true
+            };
+            request.get(options2, function(error, response, body) {
+                res.json(body.artist.bio);
+            });
+        });
     });
 });
 
@@ -119,6 +142,8 @@ function getAuth(){
         })
     }
 }
+// last.fm API key = b9821c4b408223ae2c1c89fcd8047790
+//    shared secret = b2d464b36639c5a1f33216ad77380f5e
 
 module.exports = router;
     

@@ -53,4 +53,11 @@ export class SearchComponent implements OnInit {
     this.search("");
     this.selection.emit(artist);
   }
+
+  clearSearch():void{
+    const searchBox:HTMLInputElement = document.getElementById("search-box") as HTMLInputElement;
+    if (searchBox){
+      searchBox.value = '';
+    }
+  }
 }
