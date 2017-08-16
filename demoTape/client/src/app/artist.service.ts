@@ -52,8 +52,8 @@ export class ArtistService {
     return this.http.get(this.urlBase+`/api/v1/artist/${artist.id}/bio`)
     .map(response => {
       const bio = new Bio();
-      bio.content = response["content"];
-      bio.summary = response["summary"];
+      bio.content = response["content"].replace(/\<a.*\/a\>/g, '');
+      bio.summary = response["summary"].replace(/\<a.*\/a\>/g, '');
       return bio;
     });
   }

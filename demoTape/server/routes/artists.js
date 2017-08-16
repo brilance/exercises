@@ -39,7 +39,9 @@ router.get('/artist/:id/bio', function(req, res, next){
                 json: true
             };
             request.get(options2, function(error, response, body) {
-                res.json(body.artist.bio);
+                if (body.artist){
+                    res.json(body.artist.bio);
+                }
             });
         });
     });
