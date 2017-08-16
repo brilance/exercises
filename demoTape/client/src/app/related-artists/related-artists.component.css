@@ -1,0 +1,14 @@
+.relArtist{
+    display:inline-block;
+    padding:5px;
+    background-color:#fff;
+    cursor:pointer;
+}
+
+.relArtist:hover{
+    background-color:#ccc;
+}
+
+.artistImg{
+    width:64px;
+}

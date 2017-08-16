@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { madonna } from './testing/madonna';
+import { madonnaAlbum } from './testing/madonnaAlbum';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -34,6 +35,16 @@ describe('AppComponent', () => {
       app.setArtist(madonna);
       expect(app.artist).toBe(madonna);
       expect(app.iframeURI).toBe(`https://open.spotify.com/embed?uri=${app.artist.uri}`);
+    }));
+  });
+
+  describe('playAlbum', () => {
+    it('should set the iframe source to the given album', async(() => {
+      const fixture = TestBed.createComponent(AppComponent);
+      const app = fixture.debugElement.componentInstance;
+      expect(app.iframeURI).toBeUndefined();
+      app.playAlbum(madonnaAlbum);
+      expect(app.iframeURI).toBe(`https://open.spotify.com/embed?uri=${madonnaAlbum.uri}`);
     }));
   });
 });

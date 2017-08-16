@@ -49,9 +49,8 @@ export class SearchComponent implements OnInit {
     this.searchTerms.next(value);
   }
 
-  selectArtist(artist:Artist){
+  selectArtist(artist:Artist):void{
     this.search("");
     this.selection.emit(artist);
   }
-
 }

@@ -1,9 +1,13 @@
 <div *ngIf="relatedArtists.length">
     <h2>Related Artists</h2>
-    <div *ngFor="let artist of relatedArtists" class="relArtist">
-      <div>{{artist.name}}</div>
-      <div *ngIf="artist.images.length > 2">
-        <img [src]="artist.images[2].url | safe"/>
-      </div>
+    <p>Click an artist to view their Demo Tape.</p>
+    <div *ngFor="let artist of relatedArtists" class="relArtist" (click)="selectArtist(artist)">
+      <span *ngIf="artist.images.length > 2">
+        <img [src]="artist.images[2].url | safe" class="artistImg" [title]="artist.name" [alt]="artist.name"/>
+      </span>
     </div>
+</div>
+<div *ngIf="searched && !relatedArtists.length">
+  <h2>Related Artists</h2>
+  <p>No artists found.</p>
 </div>

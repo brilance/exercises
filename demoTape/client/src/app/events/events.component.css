@@ -1,0 +1,14 @@
+.event{
+    font-size:.9em;
+}
+
+.event > .name{
+    font-size:1.1em;
+    font-weight:bold;
+    display:block;
+    margin-top:5px;
+}
+
+.event > .venue, .event > .date{
+    display:block;
+}

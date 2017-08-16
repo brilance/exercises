@@ -12,15 +12,19 @@ import { ArtistEvent } from '../models/event';
 export class EventsComponent implements OnInit {
   private _artist:Artist;
   events:Array<ArtistEvent>;
+  searched:boolean;
 
   constructor(private artistService:ArtistService) { }
 
   ngOnInit() {
     this.events = [];
+    this.searched = false;
   }
 
   @Input() set artist(artist: Artist) {
     this._artist = artist;
+    this.events = [];
+    this.searched = true;
     if (artist){
       this.getEvents();
     }

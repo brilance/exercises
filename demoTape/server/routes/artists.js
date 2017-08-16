@@ -72,7 +72,7 @@ router.get('/artist/:id/event', function(req, res, next){
         request.get(options, function(error, response, body) {
             const name = body.name;
             const options2 = {
-                url: `https://app.ticketmaster.com/discovery/v2/events.json?apikey=aIZpAimvsGpE5JMOyHqVe0tDAXOMplXT&keyword=${name}`,
+                url: `https://app.ticketmaster.com/discovery/v2/events.json?apikey=aIZpAimvsGpE5JMOyHqVe0tDAXOMplXT&keyword=${name}&size=10`,
                 json: true
             };
             request.get(options2, function(error, response, body) {

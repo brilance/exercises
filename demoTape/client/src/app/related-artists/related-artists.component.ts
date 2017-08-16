@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ArtistService } from '../artist.service';
 import { Artist } from '../models/artist';
 
@@ -10,15 +10,21 @@ import { Artist } from '../models/artist';
 export class RelatedArtistsComponent implements OnInit {
   private _artist:Artist;
   relatedArtists:Array<Artist>;
+  searched:boolean;
+
+  @Output()
+  artistSelection:EventEmitter<Artist> = new EventEmitter();
 
   constructor(private artistService:ArtistService) { }
 
   ngOnInit() {
     this.relatedArtists = [];
+    this.searched = false;
   }
 
   @Input() set artist(artist: Artist) {
     this._artist = artist;
+    this.searched = true;
     if (artist){
       this.getRelatedArtists();
     }
@@ -32,6 +38,10 @@ export class RelatedArtistsComponent implements OnInit {
     this.artistService.getRelatedArtists(this.artist).subscribe(results => {
       this.relatedArtists = results;
     });
+  }
+
+  selectArtist(artist:Artist):void{
+    this.artistSelection.emit(artist);
   }
 
 }

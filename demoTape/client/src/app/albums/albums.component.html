@@ -1,6 +1,11 @@
 <div *ngIf="albums.length">
   <h2>Top Albums</h2>
-  <div *ngFor="let album of albums" class="albumImg">
-    <img [src]="album.images[2].url | safe"/>
+  <p>Click an album to play it.</p>
+  <div *ngFor="let album of albums" class="albumImg" (click)="selectAlbum(album)">
+    <img [src]="album.images[2].url | safe" [title]="album.name" [alt]="album.name"/>
   </div>
+</div>
+<div *ngIf="searched && !albums.length">
+  <h2>Top Albums</h2>
+  <p>No albums found.</p>
 </div>

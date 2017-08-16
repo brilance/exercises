@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+h1{
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size:4em;
+}
+
+h2{
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size:2em;
+    border-bottom:1px solid #ccc;
+}
+
+p{
+    margin-left:5px;
+}

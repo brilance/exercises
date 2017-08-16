@@ -1,9 +1,15 @@
 <div *ngIf="events.length">
     <h2>Upcoming Events</h2>
     <div *ngFor="let event of events" class="event">
-      <span>{{event.name}}</span>
-      <span>{{event.date | date:mediumDate}}</span>
-      <span>{{event.venue}}</span>
+      <span class="name">
+        <a target="_blank" [href]="event.url | safe">{{event.name}}</a>
+      </span>
+      <span class="date">{{event.date | date:mediumDate}}</span>
+      <span class="venue">{{event.venue}}</span>
       <span>{{event.city}}, {{event.state}} {{event.country}}</span>
     </div>
+</div>
+<div *ngIf="searched && !events.length">
+  <h2>Upcoming Events</h2>
+  <p>No events found.</p>
 </div>

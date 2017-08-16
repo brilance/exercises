@@ -1,6 +1,6 @@
 <div id="search-component">
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-  <div>
+  <label for="search-box">Artist:</label> <input #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Enter an artist name"/>
+  <div class="search-result-container">
     <div *ngFor="let artist of artists | async" class="search-result" (click)="selectArtist(artist)">
         {{artist.name}}
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { ArtistService } from '../artist.service';
 import { Artist } from '../models/artist';
 import { Album } from '../models/album';
@@ -11,18 +11,24 @@ import { Album } from '../models/album';
 export class AlbumsComponent implements OnInit {
   private _artist:Artist;
   albums:Array<Album>;
+  searched:boolean;
+
+  @Output()
+  albumSelection:EventEmitter<Album> = new EventEmitter();
 
   constructor(private artistService:ArtistService) { }
 
   ngOnInit() {
     this.albums = [];
+    this.searched = false;
   }
 
   @Input() set artist(artist: Artist) {
-       this._artist = artist;
-       if (artist){
+      this.searched = true;
+      this._artist = artist;
+      if (artist){
         this.getAlbums();
-       }
+      }
     }
     
   get artist(): Artist {
@@ -33,6 +39,10 @@ export class AlbumsComponent implements OnInit {
     this.artistService.getAlbums(this.artist).subscribe(results => {
       this.albums = results;
     });
+  }
+
+  selectAlbum(album:Album):void{
+    this.albumSelection.emit(album);
   }
 
 }

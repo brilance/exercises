@@ -1,0 +1,10 @@
+.albumImg{
+    display:inline-block;
+    padding:5px;
+    background-color:#fff;
+    cursor:pointer;
+}
+
+.albumImg:hover{
+    background-color:#ccc;
+}

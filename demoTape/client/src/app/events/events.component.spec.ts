@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {ArtistService} from '../artist.service';
 import { Observable }     from 'rxjs/Observable';
 import { EventsComponent } from './events.component';
+import {SafePipe} from '../safe.pipe';
 import { madonna } from '../testing/madonna';
 import { madonnaEvent } from '../testing/madonnaEvent';
 
@@ -17,7 +18,7 @@ describe('EventsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventsComponent ],
+      declarations: [ EventsComponent,SafePipe ],
       providers: [{provide: ArtistService, useValue: ArtistServiceStub}]
     })
     .compileComponents();

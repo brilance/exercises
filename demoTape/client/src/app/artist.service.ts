@@ -33,6 +33,7 @@ export class ArtistService {
         const event = new ArtistEvent();
         event.name = item["name"];
         event.id = item["id"];
+        event.url = item["url"];
         event.date = item["dates"]["start"]["localDate"];
         event.venue = item["_embedded"]["venues"][0]["name"];
         event.city = item["_embedded"]["venues"][0]["city"]["name"];

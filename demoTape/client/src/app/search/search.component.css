@@ -1,0 +1,37 @@
+#search-component{
+  position:relative;
+}
+
+.search-result-container{
+    position: absolute;
+    left:97px;
+    z-index:2;
+    top:34px;
+    border-top:1px solid grey;
+}
+
+.search-result{
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    width: 260px;
+    height: 28px;
+    padding: 5px;
+    background-color: white;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .search-result:hover {
+    color: #eee;
+    background-color: #607D8B;
+  }
+
+  label{
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size:2em;
+    vertical-align: middle;
+    position: relative;
+    top: 2px;
+    margin-left:15px;
+  }

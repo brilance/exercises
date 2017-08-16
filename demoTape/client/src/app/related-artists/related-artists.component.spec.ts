@@ -43,4 +43,13 @@ describe('RelatedArtistsComponent', () => {
       expect(component.relatedArtists[0]).toBe(buffalo);
     });
   });
+
+  describe('selectArtist', ()=>{
+    it('should emit an event with the selected artist', ()=>{
+      component.artistSelection.subscribe((artist)=>{
+        expect(artist).toEqual(madonna);
+      });
+      component.selectArtist(madonna);
+    });
+  });
 });

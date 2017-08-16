@@ -6,4 +6,5 @@ export class ArtistEvent{
     city:string;
     state:string;
     country:string;
+    url:string;
 }

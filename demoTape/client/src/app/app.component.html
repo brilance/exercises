@@ -1,6 +1,27 @@
-<h1>{{title}} <span *ngIf="artist">&mdash; {{artist.name}}</span></h1>
-<app-search (selection)='setArtist($event)'></app-search>
-<app-webplayer [iframeURI]='iframeURI'></app-webplayer>
-<app-albums [artist]='artist'></app-albums>
-<app-related-artists [artist]='artist'></app-related-artists>
-<app-events [artist]='artist'></app-events>
+<div class="container-fluid">
+    <div class="row">
+            <div class="col-sm-12">
+                <img src="assets/cassette-tape-with-black-border-small.png" alt='cassette' class="tapeIcon"/>
+                <h1>{{title}} <span *ngIf="artist">: {{artist.name}}</span></h1>
+                <img src="assets/cassette-tape-with-black-border-small.png" alt='cassette' class="tapeIcon"/>
+                <div class="clear"></div>
+                <app-search (selection)='setArtist($event)'></app-search>
+            </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <app-webplayer [iframeURI]='iframeURI'></app-webplayer>
+        </div>
+        <div class="col-sm-3">
+            <app-albums (albumSelection)='playAlbum($event)' [artist]='artist'></app-albums>
+        </div>
+        <div class="col-sm-3">
+            <app-related-artists (artistSelection)='setArtist($event)' [artist]='artist'></app-related-artists>
+        </div>
+        <div class="col-sm-3">
+            <app-events [artist]='artist'></app-events>
+        </div>
+    </div>
+</div>

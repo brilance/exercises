@@ -1,0 +1,23 @@
+.col-sm-3{
+    background-color:#fff;
+}
+
+@media (min-width: 768px) {
+    .col-sm-3{
+        min-height:700px;
+    }
+}
+
+.tapeIcon{
+    display:inline-block;
+    margin:15px 15px;
+    vertical-align: top;
+}
+
+h1{
+    display:inline-block;
+}
+
+.clear{
+    clear: both;
+}
