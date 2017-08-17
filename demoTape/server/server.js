@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(logger('dev'));
 
 app.use('/api/v1/', artists);
+app.use(express.static(__dirname + '/client/dist/'));
 
 //error handling
 app.use(function(req, res, next){
