@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ArtistService } from '../artist.service';
 import { Artist } from '../models/artist';
-import { Bio } from '../models/Bio';
+import { Bio } from '../models/bio';
 
 @Component({
   selector: 'app-bio',

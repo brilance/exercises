@@ -1,4 +1,4 @@
-import {ArtistEvent} from '../models/Event';
+import {ArtistEvent} from '../models/event';
 
 export const madonnaEvent = new ArtistEvent();
 madonnaEvent.id = "vvG1VZfIDKu6TB";

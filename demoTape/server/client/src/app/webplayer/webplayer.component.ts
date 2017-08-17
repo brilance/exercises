@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Artist } from '../models/Artist';
+import { Artist } from '../models/artist';
 
 @Component({
   selector: 'app-webplayer',

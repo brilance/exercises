@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 //middleware
-app.use(logger('dev'));
+app.use(logger('tiny'));
 
 app.use('/api/v1/', artists);
 app.use(express.static(__dirname + '/client/dist/'));

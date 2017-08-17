@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable }     from 'rxjs/Observable';
-import { Album } from './models/Album';
-import { Artist } from './models/Artist';
-import { ArtistEvent } from './models/Event';
-import { Bio } from './models/Bio';
+import { Album } from './models/album';
+import { Artist } from './models/artist';
+import { ArtistEvent } from './models/event';
+import { Bio } from './models/bio';
 
 @Injectable()
 export class ArtistService {
-  private urlBase = "http://localhost:3000";
+  //private urlBase = "http://localhost:3000";
+  private urlBase = "";
   
   constructor(private http: HttpClient) { }
 

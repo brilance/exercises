@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SearchService } from '../search.service';
 import { Observable }     from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
-import { Artist } from '../models/Artist';
+import { Artist } from '../models/artist';
 
 // Observable class extensions
 import 'rxjs/add/observable/of';

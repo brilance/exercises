@@ -1,4 +1,4 @@
-import {Album} from '../models/Album';
+import {Album} from '../models/album';
 
 export const madonnaAlbum = new Album();
 madonnaAlbum.album_type = "album";

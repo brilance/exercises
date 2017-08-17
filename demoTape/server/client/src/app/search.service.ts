@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable }     from 'rxjs/Observable';
-import {Artist} from './models/Artist';
+import {Artist} from './models/artist';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class SearchService {
-  private urlBase = "http://localhost:3000";
+  //private urlBase = "http://localhost:3000";
+  private urlBase = "";
 
   constructor(private http: HttpClient) { }
 
