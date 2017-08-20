@@ -52,14 +52,14 @@ export class SearchComponent implements OnInit {
   }
 
   search($event:KeyboardEvent, value:string):void{   
-    if ($event && $event.keyCode == 13){
+    if ($event && $event.keyCode == 13 && this.selectedItem){
       this.selectedItem.click();
     }
     else if ($event && ($event.keyCode == 38 || $event.keyCode == 40)){
       if ($event.keyCode == 40){
         this.selectedArtist++;
       }
-      else if ($event.keyCode == 38){
+      else if ($event.keyCode == 38 && this.selectedArtist > 0){
         this.selectedArtist--;
       }
 
