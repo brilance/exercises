@@ -23,6 +23,8 @@ import 'rxjs/add/operator/switchMap';
 export class SearchComponent implements OnInit {
   artists:Observable<Artist[]>;
   private searchTerms = new Subject<string>();
+  private selectedArtist = -1;
+  private selectedItem;
 
   @Output()
   selection:EventEmitter<Artist> = new EventEmitter();
@@ -33,11 +35,15 @@ export class SearchComponent implements OnInit {
     this.artists = this.searchTerms.asObservable()
     .debounceTime(800)        // wait 300ms after each keystroke before considering the term
     .distinctUntilChanged()   // ignore if next search term is same as previous
-    .switchMap( term => term   // switch to new observable each time the term changes
+    .switchMap( term => {
+      this.selectedArtist = -1;
+      this.selectedItem = null;
+      return term   // switch to new observable each time the term changes
       // return the http search observable
       ? this.searchService.search(term)
       // or the observable of empty artists if there was no search term
-      : Observable.of<Artist[]>([]))
+      : Observable.of<Artist[]>([]); }
+    )
     .catch( error => {
       // TODO: add real error handling
       console.log(error);
@@ -45,12 +51,34 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  search(value:string):void{   
-    this.searchTerms.next(value);
+  search($event:KeyboardEvent, value:string):void{   
+    if ($event && $event.keyCode == 13){
+      this.selectedItem.click();
+    }
+    else if ($event && ($event.keyCode == 38 || $event.keyCode == 40)){
+      if ($event.keyCode == 40){
+        this.selectedArtist++;
+      }
+      else if ($event.keyCode == 38){
+        this.selectedArtist--;
+      }
+
+      const item = document.getElementById(`artistSuggest${this.selectedArtist}`);
+      if (this.selectedItem){
+        this.selectedItem.classList.remove('selected');
+      }
+      if (item){
+        this.selectedItem = item;
+        this.selectedItem.classList.add('selected');
+      }
+    }
+    else{
+      this.searchTerms.next(value);
+    }
   }
 
   selectArtist(artist:Artist):void{
-    this.search("");
+    this.search(null, "");
     this.selection.emit(artist);
   }
 

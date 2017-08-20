@@ -22,7 +22,7 @@
     overflow: hidden;
   }
 
-  .search-result:hover {
+  .search-result:hover, .search-result.selected {
     color: #eee;
     background-color: #607D8B;
   }

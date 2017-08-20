@@ -1,7 +1,7 @@
 <div id="search-component">
-  <label for="search-box">Artist:</label> <input #searchBox id="search-box" (keyup)="search(searchBox.value)" placeholder="Enter an artist name" (click)="clearSearch()"/>
+  <label for="search-box">Artist:</label> <input #searchBox id="search-box" (keyup)="search($event, searchBox.value)" placeholder="Enter an artist name" (click)="clearSearch()"/>
   <div class="search-result-container">
-    <div *ngFor="let artist of artists | async" class="search-result" (click)="selectArtist(artist)">
+    <div *ngFor="let artist of artists | async; let i = index" class="search-result" id="artistSuggest{{i}}" (click)="selectArtist(artist)">
         {{artist.name}}
     </div>
   </div>
