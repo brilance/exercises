@@ -19,12 +19,12 @@
 }
 
 .col1{
-	display:inline-block;
+	display:inline;
 	width:15px;
 }
 
 .col2{
-	display:inline-block;
+	display:inline;
 }
 
 .col3{
