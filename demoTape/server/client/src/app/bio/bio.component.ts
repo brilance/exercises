@@ -25,6 +25,7 @@ export class BioComponent implements OnInit {
   @Input() set artist(artist: Artist) {
     this.searched = true;
     this._artist = artist;
+    this.bio = null;
     if (artist){
       this.getBio();
     }
