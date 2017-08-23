@@ -9,7 +9,7 @@ router.get('/route/:id', function(req, res, next){
         json: true
     };
     request.get(options, function(error, response, body) {
-        res.json(body);
+        res.json(body.bus);
     });
 });
 
