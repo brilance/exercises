@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { shuffle } from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -23,15 +24,7 @@ export class AppComponent {
   }
 
   randomize():void{
-    this.availablePlaces.sort((a,b) => {
-      return 0.5-Math.random();
-    });
-    this.availablePlaces.sort((a,b) => {
-      return 0.5-Math.random();
-    });
-    this.availablePlaces.sort((a,b) => {
-      return 0.5-Math.random();
-    });
+    this.availablePlaces = shuffle(this.availablePlaces);
   }
 
   placeX(position):void{
