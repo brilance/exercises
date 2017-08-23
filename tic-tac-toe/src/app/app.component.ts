@@ -10,6 +10,7 @@ import { shuffle } from 'lodash';
 export class AppComponent {
   places = [null,null,null,null,null,null,null,null,null];
   availablePlaces = [0,1,2,3,4,5,6,7,8];
+  preferredPlaces = [];
   threes = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
   moveCounter = 0;
   displayMessage = '';
@@ -37,13 +38,21 @@ export class AppComponent {
   }
 
   placeO():void{
-    let subscript = this.availablePlaces.pop();
+    let subscript = null;
+    if (this.preferredPlaces.length > 0){
+      subscript = this.preferredPlaces.pop();
+    }
+    else{
+      subscript = this.availablePlaces.pop();
+    }
+
     while(this.places[subscript]!=null){
       subscript = this.availablePlaces.pop();
       if (this.availablePlaces.length == 0){
         break;
       }
     }
+    
     this.places[subscript] = "O";
     this.moveCounter++;
     this.whoseTurn = "X";
@@ -71,6 +80,7 @@ export class AppComponent {
       for (let index of threeset){
         items.push(this.places[index]);
       }
+
       if (items[0]=="X" && items[1]=="X" && items[2]=="X"){
         this.gameWon = true;
         this.gameWinner = "X";
@@ -78,6 +88,15 @@ export class AppComponent {
       else if (items[0]=="O" && items[1]=="O" && items[2]=="O"){
         this.gameWon = true;
         this.gameWinner = "O";
+      }
+      else if (items[0]=="O" && items[1]=="O" && items[2]==null){
+        this.preferredPlaces.push(threeset[2]);
+      }
+      else if (items[0]=="O" && items[1]==null && items[2]=="O"){
+        this.preferredPlaces.push(threeset[1]);
+      }
+      else if (items[0]==null && items[1]=="O" && items[2]=="O"){
+        this.preferredPlaces.push(threeset[0]);
       }
     }
 
