@@ -13,7 +13,7 @@ const info = require('./routes/info');
 app.use(logger('dev'));
 
 app.use('/api/v1/', info);
-//app.use(express.static(__dirname + '/client/src/'));
+app.use(express.static(__dirname + '/septa-client/dist/'));
 
 //error handling
 app.use(function(req, res, next){

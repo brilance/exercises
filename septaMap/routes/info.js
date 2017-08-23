@@ -9,7 +9,16 @@ router.get('/route/:id', function(req, res, next){
         json: true
     };
     request.get(options, function(error, response, body) {
-        res.json(body.bus);
+        if (body.bus){
+            res.json(body.bus);
+        }
+        else{
+            const error = {
+                error:true,
+                errorMsg:"Invalid route"
+            }
+            res.json(error);
+        }
     });
 });
 
