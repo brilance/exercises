@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SeptaService } from '../septa.service';
 import { Vehicle } from '../models/vehicle';
+import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 import * as math from 'mathjs';
 declare const google: any;
 
@@ -22,6 +23,8 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.vehicles = [];
     this.markers = [];
+
+    //create google map instance, if not running tests
     if (!this.testing){
       this.map = new google.maps.Map(document.getElementById('googleMap'), {
         zoom: 1,
@@ -30,6 +33,16 @@ export class MapComponent implements OnInit {
     }
     else{
       this.map = null;
+    }
+
+    //create polling for updating map
+    if (!this.testing){
+      IntervalObservable.create(30000)
+      .subscribe(() => {
+        if (this._route){
+          this.getVehicles();
+        }
+      });
     }
   }
 
