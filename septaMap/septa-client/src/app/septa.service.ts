@@ -21,7 +21,6 @@ export class SeptaService {
       .map(response => {
         if (response["error"]){
           let vehicles = [];
-          //TODO: emit error message
           return vehicles;
         }
         else{
