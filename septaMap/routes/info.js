@@ -32,8 +32,7 @@ router.get('/route/:id/stop/', function(req, res, next){
     };
     let longDelta = 10;
     let latDelta = 10;
-    let closestLatIdx = -1;
-    let closestLongIdx = -1;
+    let closestIdx = -1;
     let idx = -1;
     request.get(options, function(error, response, body) {
         if (body){
@@ -41,22 +40,16 @@ router.get('/route/:id/stop/', function(req, res, next){
                 idx++;
                 const bodyLat = item["lat"];
                 const bodyLong = item["lng"];
-                if (Math.abs(lat-bodyLat) < latDelta){
-                    latDelta = Math.abs(lat-bodyLat);
-                    closestLatIdx = idx;
+                const newLatDelta = Math.abs(lat-bodyLat);
+                const newLongDelta = Math.abs(long-bodyLong);
+
+                if (newLatDelta < latDelta && newLongDelta < longDelta){
+                    latDelta = newLatDelta;
+                    longDelta = newLongDelta
+                    closestIdx = idx;
                 }
-                if (Math.abs(long-bodyLong) < longDelta){
-                    longDelta = Math.abs(long-bodyLong);
-                    closestLongIdx = idx;
-                }
             }
-            if (closestLatIdx == closestLongIdx){
-                res.json(body[closestLatIdx]);
-            }
-            else{
-                const response = [body[closestLatIdx], body[closestLongIdx]];
-                res.json(response);
-            }
+            res.json(body[closestIdx]);
         }
         else{
             const error = {
