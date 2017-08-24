@@ -26,6 +26,7 @@ describe('MapComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
+    component.testing = true;
     fixture.detectChanges();
   });
 
@@ -48,8 +49,8 @@ describe('MapComponent', () => {
       component.getVehicles();
       expect(component.vehicles.length).toBe(2);
       const coords = component.calcCenter();
-      expect(coords["lat"]).toEqual(39.9344575);
-      expect(coords["long"]).toEqual(-75.269245);
+      expect(coords["lat"]).toBeCloseTo(39.9344575, 6);
+      expect(coords["long"]).toBeCloseTo(-75.269245, 6);
     });
   });
 });
