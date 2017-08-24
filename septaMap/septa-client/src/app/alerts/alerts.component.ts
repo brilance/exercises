@@ -38,4 +38,14 @@ export class AlertsComponent implements OnInit {
       }
     });
   }
+
+  togglePanel(id:string):void{
+    const panelElem = document.getElementById(id);
+    if (panelElem.style.display == "block"){
+      panelElem.style.display = "none";
+    }
+    else{
+      panelElem.style.display = "block";
+    }
+  }
 }

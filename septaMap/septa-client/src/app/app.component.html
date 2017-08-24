@@ -1,7 +1,15 @@
 <h1>
   {{title}}
 </h1>
-<label for="route-number">Route #:</label> <input #routeNumber id="route-number" placeholder="Enter a route number" (keyup)="lookupRouteKey($event)"/>
-<button id="route-number-btn" (click)="lookupRouteBtn(routeNumber.value)">View</button>
-<app-alerts [route]="routeNum"></app-alerts>
-<app-map [route]="routeNum"></app-map>
+<div class="search">
+  <label for="route-number">Route #:</label> <input #routeNumber id="route-number" placeholder="Enter a route number" (keyup)="lookupRouteKey($event)"/>
+  <button id="route-number-btn" (click)="lookupRouteBtn(routeNumber.value)">View</button>
+</div>
+<div class="cont">
+  <div class="col1">
+    <app-map [route]="routeNum"></app-map>
+  </div>
+  <div class="col2">
+    <app-alerts [route]="routeNum"></app-alerts>
+  </div>
+</div>

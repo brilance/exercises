@@ -1,24 +1,32 @@
-<div *ngIf="alerts.length">
-  <div *ngFor="let alert of alerts">
-      <div *ngIf="alert.advisory_message != ''">
-        <h2>Service Advisory</h2>
-        <p>{{alert.advisory_message}}</p>
+<div *ngIf="alerts.length" class="alertsCont">
+  <div *ngFor="let alert of alerts; let i = index">
+      <div *ngIf="alert.advisory_message != ''" class="panel">
+        <div class="panelHeader" (click)="togglePanel(i+'A')">
+          <h2>Service Advisory</h2>
+        </div>
+        <div class="panelBody" id="{{i}}A" style="display:none">
+          <p>{{alert.advisory_message}}</p>
+        </div>
       </div>
-      <div *ngIf="alert.detour_message != ''">
-          <h2>Detour</h2>
-          <p>{{alert.detour_message}}</p>
-          <p>
-            <strong>Start location:</strong> {{alert.detour_start_location}}
-          </p>
-          <p>
-            <strong>Start date and time:</strong> {{alert.detour_start_date_time}}
-          </p>
-          <p>
-            <strong>End date and time:</strong> {{alert.detour_end_date_time}}
-          </p>
-          <p>
-            <strong>Reason:</strong> {{alert.detour_reason}}
-          </p>
+      <div *ngIf="alert.detour_message != ''" class="panel">
+          <div class="panelHeader" (click)="togglePanel(i+'B')">  
+            <h2>Detour</h2>
+          </div>
+          <div class="panelBody" id="{{i}}B" style="display:none">
+            <p>{{alert.detour_message}}</p>
+            <p>
+              <strong>Start location:</strong> {{alert.detour_start_location}}
+            </p>
+            <p>
+              <strong>Start date and time:</strong> {{alert.detour_start_date_time}}
+            </p>
+            <p>
+              <strong>End date and time:</strong> {{alert.detour_end_date_time}}
+            </p>
+            <p>
+              <strong>Reason:</strong> {{alert.detour_reason}}
+            </p>
+          </div>
         </div>
   </div>
 </div>

@@ -1,0 +1,21 @@
+#googleMap{
+    width:350px;
+    height:300px;
+    margin:auto;
+}
+
+@media screen and (min-width:500px){
+    #googleMap{
+        width:498px;
+        height:500px;
+    }
+}
+
+#mapContainer{
+    border:1px solid rgb(163,204,255);
+    outline:1px solid grey;
+}
+
+#mapContainer h2{
+    margin:0px;
+}

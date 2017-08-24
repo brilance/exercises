@@ -1,0 +1,28 @@
+@media screen and (max-width:875px){
+    .alertsCont{
+        margin-top:15px;
+    }
+}
+
+.panelHeader{
+    cursor:pointer;
+    border: 1px solid grey;
+    padding: 15px;
+    margin: 0px;
+    background-color:rgb(163,204,255);
+}
+
+.panelHeader:hover{
+    background-color:rgb(121, 180, 255);
+}
+
+.panelHeader h2{
+    margin:0px;
+    font-family: 'Poiret One',cursive;
+}
+
+.panelBody{
+    padding:15px;
+    border:1px solid #ccc;
+    margin:0px;
+}
