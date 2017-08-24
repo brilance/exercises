@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SeptaService } from '../septa.service';
 import { Vehicle } from '../models/vehicle';
 import { Stop } from '../models/stop';

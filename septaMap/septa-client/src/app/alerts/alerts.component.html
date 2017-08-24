@@ -1,0 +1,24 @@
+<div *ngIf="alerts.length">
+  <div *ngFor="let alert of alerts">
+      <div *ngIf="alert.advisory_message != ''">
+        <h2>Service Advisory</h2>
+        <p>{{alert.advisory_message}}</p>
+      </div>
+      <div *ngIf="alert.detour_message != ''">
+          <h2>Detour</h2>
+          <p>{{alert.detour_message}}</p>
+          <p>
+            <strong>Start location:</strong> {{alert.detour_start_location}}
+          </p>
+          <p>
+            <strong>Start date and time:</strong> {{alert.detour_start_date_time}}
+          </p>
+          <p>
+            <strong>End date and time:</strong> {{alert.detour_end_date_time}}
+          </p>
+          <p>
+            <strong>Reason:</strong> {{alert.detour_reason}}
+          </p>
+        </div>
+  </div>
+</div>

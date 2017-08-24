@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable }     from 'rxjs/Observable';
 import { Vehicle }     from './models/vehicle';
 import { Stop }     from './models/stop';
+import { Alert }     from './models/alert';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import { bus1, bus2 } from './testing/101busses';
@@ -49,5 +50,12 @@ export class SeptaService {
       .map(response => {
         return response as Stop;
       });
+  }
+
+  getAlerts(route:number):Observable<Alert[]>{
+    return this.http.get(`/api/v1/route/${route}/alert`)
+    .map(response => {
+      return response as Alert[];
+    });
   }
 }

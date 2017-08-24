@@ -4,11 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { SeptaService } from './septa.service';
+import { AlertsComponent } from './alerts/alerts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,

@@ -4,10 +4,13 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { SeptaService } from './septa.service';
 import { Vehicle }     from './models/vehicle';
+import { Alert }     from './models/alert';
 import { busInput }   from './testing/101busInput';
 import { bus1, bus2 } from './testing/101busses';
 import { bus1StopsInput } from './testing/bus1StopsInput';
 import { bus1Stop } from './testing/bus1Stops';
+import { bus1AlertInput } from './testing/bus1AlertInput';
+import { bus1Alert } from './testing/bus1Alert';
 
 const vehicleResult = [bus1, bus2];
 
@@ -46,7 +49,7 @@ describe('SeptaServiceService', () => {
   });
 
   describe('getClosestStop', () =>{
-    it('should call http backend and return stops for a vehicle', inject([SeptaService, HttpClient, HttpTestingController], (service: SeptaService, http: HttpClient, httpMock:HttpTestingController) => {
+    it('should call http backend and return closest stop for a vehicle', inject([SeptaService, HttpClient, HttpTestingController], (service: SeptaService, http: HttpClient, httpMock:HttpTestingController) => {
       service.getClosestStop(101, bus1).subscribe((results)=>{
         expect(results.lat).toEqual(bus1Stop.lat);
         expect(results.lng).toEqual(bus1Stop.lng);
@@ -57,6 +60,30 @@ describe('SeptaServiceService', () => {
       const req = httpMock.expectOne('/api/v1/route/101/stop?lat=39.906532&long=-75.27803');
       expect(req.request.method).toEqual('GET');
       req.flush(bus1StopsInput);
+      httpMock.verify();
+    }));
+  });
+
+  describe('getAlert', () =>{
+    it('should call http backend and return alerts for a route', inject([SeptaService, HttpClient, HttpTestingController], (service: SeptaService, http: HttpClient, httpMock:HttpTestingController) => {
+      service.getAlerts(101).subscribe((results)=>{
+        const alert1:Alert = results[0] as Alert;
+        expect(alert1.advisory_message).toEqual(bus1Alert.advisory_message);
+        expect(alert1.route_id).toEqual(bus1Alert.route_id);
+        expect(alert1.last_updated).toEqual(bus1Alert.last_updated);
+        expect(alert1.current_message).toEqual(bus1Alert.current_message);
+        expect(alert1.detour_end_date_time).toEqual(bus1Alert.detour_end_date_time);
+        expect(alert1.detour_message).toEqual(bus1Alert.detour_message);
+        expect(alert1.detour_reason).toEqual(bus1Alert.detour_reason);
+        expect(alert1.detour_start_date_time).toEqual(bus1Alert.detour_start_date_time);
+        expect(alert1.detour_start_location).toEqual(bus1Alert.detour_start_location);
+        expect(alert1.isSnow).toEqual(bus1Alert.isSnow);
+        expect(alert1.route_name).toEqual(bus1Alert.route_name);
+      });
+
+      const req = httpMock.expectOne('/api/v1/route/101/alert');
+      expect(req.request.method).toEqual('GET');
+      req.flush(bus1AlertInput);
       httpMock.verify();
     }));
   });
