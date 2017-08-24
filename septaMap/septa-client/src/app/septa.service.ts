@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable }     from 'rxjs/Observable';
 import { Vehicle }     from './models/vehicle';
+import { Stop }     from './models/stop';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import { bus1, bus2 } from './testing/101busses';
@@ -42,5 +43,12 @@ export class SeptaService {
         }
       });
     }
+  }
+
+  getClosestStop(route:number, vehicle:Vehicle):Observable<Stop>{
+    return this.http.get(`/api/v1/route/${route}/stop?lat=${vehicle.lat}&long=${vehicle.long}`)
+      .map(response => {
+        return response as Stop;
+      });
   }
 }

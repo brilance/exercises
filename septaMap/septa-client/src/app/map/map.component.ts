@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { SeptaService } from '../septa.service';
 import { Vehicle } from '../models/vehicle';
+import { Stop } from '../models/stop';
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 import * as math from 'mathjs';
 declare const google: any;
@@ -81,7 +82,7 @@ export class MapComponent implements OnInit {
     let bounds = this.map.getBounds();
     
     for (const vehicle of this.vehicles){
-      var marker = new google.maps.Marker({
+      const marker = new google.maps.Marker({
         position: {lat:vehicle.lat, lng:vehicle.long},
         map: this.map
       });
@@ -91,7 +92,28 @@ export class MapComponent implements OnInit {
         this.map.setZoom(zoom);
         bounds = this.map.getBounds();
       }
+      this.getClosestStop(marker, vehicle);
     }
+  }
+
+  getClosestStop(marker:any, vehicle:Vehicle):void{
+    this.septaService.getClosestStop(this._route, vehicle).subscribe((results =>{
+      const stop:Stop = results;
+      const infoWindowContent = `
+        <div class='infoWindow'>
+          <p><strong>Destination:</strong>
+            ${vehicle.destination}
+          </p>
+          <p><strong>Closest stop:</strong>
+          ${stop.stopname}</p>
+        </div>`;
+        const infowindow = new google.maps.InfoWindow({
+          content: infoWindowContent
+        });
+        marker.addListener('click', function() {
+          infowindow.open(this.map, marker);
+        });
+    }));
   }
 
   clearMarkers():void{

@@ -6,6 +6,8 @@ import { SeptaService } from './septa.service';
 import { Vehicle }     from './models/vehicle';
 import { busInput }   from './testing/101busInput';
 import { bus1, bus2 } from './testing/101busses';
+import { bus1StopsInput } from './testing/bus1StopsInput';
+import { bus1Stop } from './testing/bus1Stops';
 
 const vehicleResult = [bus1, bus2];
 
@@ -39,6 +41,22 @@ describe('SeptaServiceService', () => {
       const req = httpMock.expectOne('/api/v1/route/101');
       expect(req.request.method).toEqual('GET');
       req.flush(busInput);
+      httpMock.verify();
+    }));
+  });
+
+  describe('getClosestStop', () =>{
+    it('should call http backend and return stops for a vehicle', inject([SeptaService, HttpClient, HttpTestingController], (service: SeptaService, http: HttpClient, httpMock:HttpTestingController) => {
+      service.getClosestStop(101, bus1).subscribe((results)=>{
+        expect(results.lat).toEqual(bus1Stop.lat);
+        expect(results.lng).toEqual(bus1Stop.lng);
+        expect(results.stopid).toEqual(bus1Stop.stopid);
+        expect(results.stopname).toEqual(bus1Stop.stopname);
+      });
+
+      const req = httpMock.expectOne('/api/v1/route/101/stop?lat=39.906532&long=-75.27803');
+      expect(req.request.method).toEqual('GET');
+      req.flush(bus1StopsInput);
       httpMock.verify();
     }));
   });

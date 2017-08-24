@@ -1,0 +1,1 @@
+export const bus1StopsInput = {"lng":-75.282328,"lat":39.951614,"stopid":30494,"stopname":"Lansdowne Av Station"};
