@@ -5,7 +5,7 @@
           <h2>Service Advisory</h2>
         </div>
         <div class="panelBody" id="{{i}}A" style="display:none">
-          <p>{{alert.advisory_message}}</p>
+          <p [innerHTML]="alert.advisory_message"></p>
         </div>
       </div>
       <div *ngIf="alert.detour_message != ''" class="panel">
@@ -13,18 +13,18 @@
             <h2>Detour</h2>
           </div>
           <div class="panelBody" id="{{i}}B" style="display:none">
-            <p>{{alert.detour_message}}</p>
+            <p [innerHTML]="alert.detour_message"></p>
             <p>
-              <strong>Start location:</strong> {{alert.detour_start_location}}
+              <strong>Start location:</strong> <span [innerHTML]="alert.detour_start_location"></span>
             </p>
             <p>
-              <strong>Start date and time:</strong> {{alert.detour_start_date_time}}
+              <strong>Start date and time:</strong> <span [innerHTML]="alert.detour_start_date_time"></span>
             </p>
             <p>
-              <strong>End date and time:</strong> {{alert.detour_end_date_time}}
+              <strong>End date and time:</strong> <span [innerHTML]="alert.detour_end_date_time"></span>
             </p>
             <p>
-              <strong>Reason:</strong> {{alert.detour_reason}}
+              <strong>Reason:</strong> <span [innerHTML]="alert.detour_reason"></span>
             </p>
           </div>
         </div>

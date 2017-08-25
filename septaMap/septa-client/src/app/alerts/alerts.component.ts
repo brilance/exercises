@@ -31,11 +31,6 @@ export class AlertsComponent implements OnInit {
   getAlerts():void{
     this.septaService.getAlerts(this._route).subscribe(results => {
       this.alerts = results;
-      for (let alert of this.alerts){
-        alert.advisory_message = alert.advisory_message.replace(/\<.[^\>\<]*\>/g, " ");
-        alert.advisory_message = alert.advisory_message.replace(/&amp;/g, "&");
-        alert.detour_message = alert.detour_message.replace(/\<.[^\>\<]*\>/g, " ");
-      }
     });
   }
 
