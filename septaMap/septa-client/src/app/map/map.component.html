@@ -1,5 +1,6 @@
 <div id="mapContainer">
   <h2>{{routeMessage}}</h2>
+  <button id="resumeUpdates" [ngClass]="{'hidden':pauseUpdates==false}" (click)="resumeUpdates()">Resume Updates</button>
   <div id="googleMap">
   </div>
 </div>

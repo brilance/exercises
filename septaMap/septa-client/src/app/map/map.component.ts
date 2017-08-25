@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   private markers:Array<any>;
   public testing:boolean = false;
   routeMessage:string = "";
+  pauseUpdates:boolean = false;
 
   constructor(private septaService:SeptaService) { }
 
@@ -31,6 +32,9 @@ export class MapComponent implements OnInit {
         zoom: 1,
         center: new google.maps.LatLng(0, 0)
       });
+      this.map.addListener('dragstart', ()=>{
+        this.pauseUpdates = true;
+      });
     }
     else{
       this.map = null;
@@ -40,7 +44,7 @@ export class MapComponent implements OnInit {
     if (!this.testing){
       IntervalObservable.create(30000)
       .subscribe(() => {
-        if (this._route){
+        if (this._route && !this.pauseUpdates){
           this.getVehicles();
         }
       });
@@ -139,5 +143,9 @@ export class MapComponent implements OnInit {
     else{
       return {lat:0, long:0};
     }
+  }
+
+  resumeUpdates():void{
+    this.pauseUpdates = false;
   }
 }

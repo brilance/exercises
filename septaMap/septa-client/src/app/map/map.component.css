@@ -14,8 +14,19 @@
 #mapContainer{
     border:1px solid rgb(163,204,255);
     outline:1px solid grey;
+    position:relative;
 }
 
 #mapContainer h2{
     margin:0px;
+}
+
+#resumeUpdates{
+    position: absolute;
+    top: -35px;
+    left: 390px;
+}
+
+.hidden{
+    display:none;
 }
